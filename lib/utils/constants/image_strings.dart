@@ -11,10 +11,10 @@ class TImages {
   static const String facebook = ""; //add assets/logos/facebook-icon.png
 
   //--OnBoarding Images
-  static const String onBoardingImage1 =
-      "assets/images/on_boarding_images/sammy-line-delivery-with-gps-navigation.gif";
-  static const String onBoardingImage2 =
-      "assets/images/on_boarding_images/sammy-line-man-leaning-on-a-growth-chart-while-tossing-a-coin.gif";
-  static const String onBoardingImage3 =
-      "assets/images/on_boarding_images/sammy-line-woman-on-skateboard-with-file-folders.gif";
+//   static const String onBoardingImage1 =
+//       "assets/images/on_boarding_images/sammy-line-delivery-with-gps-navigation.gif";
+//   static const String onBoardingImage2 =
+//       "assets/images/on_boarding_images/sammy-line-man-leaning-on-a-growth-chart-while-tossing-a-coin.gif";
+//   static const String onBoardingImage3 =
+//       "assets/images/on_boarding_images/sammy-line-woman-on-skateboard-with-file-folders.gif";
 }
