@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "777592963925",
+    "project_id": "karconnect-2bf95",
+    "storage_bucket": "karconnect-2bf95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777592963925:android:e9577de28d7439827925dc",
+        "android_client_info": {
+          "package_name": "com.example.karconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcFst_Iuf6wP2zo1dNa1bEkUqXfLS8pFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
