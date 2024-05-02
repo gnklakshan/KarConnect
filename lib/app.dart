@@ -52,6 +52,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  String massage = "";
 
   void _incrementCounter() {
     setState(() {
@@ -70,30 +73,62 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Color.fromARGB(255, 216, 221, 228),
+                label: Text("Enter Email"),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(20)),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            SizedBox(
+              height: 10,
+            ),
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Color.fromARGB(255, 216, 221, 228),
+                label: Text("Enter password"),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(20)),
+              ),
+            ),
+            SizedBox(
+              height: 50,
             ),
             ElevatedButton(
               onPressed: () async {
-                String email = "aaaa@gmail.com";
-                String password = "12345678";
+                String email = _emailController.text.trim();
+                String password = _passwordController.text.trim();
                 UserCredential? result =
                     await registerWithEmailAndPassword(email, password);
                 if (result != null) {
                   // User created successfully
+                  setState(() {
+                    massage = 'User created: ${result.user!.email}';
+                  });
                   print(
                       'User created: ${result.user!.email}'); //to print msg on terminal for debugging
                 } else {
                   // Error occurred
                   print('Failed to create user');
+                  setState(() {
+                    massage =
+                        'Failed to create user: ${_emailController.text.trim()}';
+                  });
                 }
               },
-              child: Text('Register'),
+              child: Text('Register User'),
             ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(massage)
           ],
         ),
       ),
