@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:karconnect/backend/firebase/firebase_auth.dart';
+import 'package:karconnect/utils/routes/routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -9,17 +10,36 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      //home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: RouteClass.getHomeRoute(),
+      getPages: RouteClass.routes,
     );
   }
 }
+
+//to navigate another page
+//  Get.toNamed('/addPage');  or
+// ElevatedButton(
+//   onPressed: () {
+//     Get.toNamed('/addPage');
+//   },
+//   child: Text('Go to Add Page'),
+// )
+
+// backnavigation
+// ElevatedButton(
+//   onPressed: () {
+//     Get.back();
+//   },
+//   child: Text('Go back'),
+// )
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
