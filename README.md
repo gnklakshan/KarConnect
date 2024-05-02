@@ -1,5 +1,20 @@
 # karconnect
 
+## Tasks
+- ✔️ initialized the project  - done
+- ✔️ Connect firebase  - done
+  - ✔️ create firebase project and connect to flutter  - done
+  - ✔️ initialize firebase app  - done
+  - ✔️ add backend functions -- register new user , sign in, sign out (no interfaces , backend only)  - done
+- ✔️ intialize lib folder  - done
+  - ✔️ add theme,const,route......  - done
+- interfaces  (NEED TO DO )
+  -  login
+  -  sign in
+  -  dashbord
+  -  car interface
+- 
+
 A new Flutter project.
 
 ## Getting Started
