@@ -35,19 +35,19 @@ class Home extends StatelessWidget {
                     collectionName: 'vehicle_db',
                   ),
 
-                  // // GestureDetector(
-                  // //     onTap: () => Get.toNamed('/details'),
-                  // //     child: const vehicle_card()),
-                  // SizedBox(
-                  //   height: 15,
-                  // ),
-                  // List_Title("Available Near you", context),
-                  // const SizedBox(
-                  //   height: 15,
-                  // ),
-                  // vehicle_card_list(
-                  //   collectionName: 'vehicle_db',
-                  // ),
+                  // GestureDetector(
+                  //     onTap: () => Get.toNamed('/details'),
+                  //     child: const vehicle_card()),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  List_Title("Available Near you", context),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  vehicle_card_list(
+                    collectionName: 'vehicle_db',
+                  ),
                 ],
               ),
             ),
