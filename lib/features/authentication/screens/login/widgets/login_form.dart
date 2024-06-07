@@ -1,3 +1,96 @@
+// import 'package:karconnect/common/styles/spacing_styles.dart';
+// import 'package:karconnect/features/authentication/screens/signup/signup.dart';
+// import 'package:karconnect/features/rent_features/screens/vehicle_details/vehicle_details.dart';
+// import 'package:karconnect/utils/constants/colors.dart';
+// import 'package:karconnect/utils/constants/image_strings.dart';
+// import 'package:karconnect/utils/constants/sizes.dart';
+// import 'package:karconnect/utils/constants/text_strings.dart';
+// import 'package:karconnect/utils/helpers/helper_functions.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter/widgets.dart';
+// import 'package:get/get.dart';
+// import 'package:iconsax/iconsax.dart';
+
+// class TLoginForm extends StatelessWidget {
+//   TLoginForm({
+//     super.key,
+//   });
+
+//   // // Create the controllers for email and password
+//   TextEditingController emailController = TextEditingController();
+//   TextEditingController passwordController = TextEditingController();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Form(
+//       child: Padding(
+//         padding: const EdgeInsets.symmetric(vertical: TSizes.spaceBtwSections),
+//         child: Column(
+//           children: [
+//             //email
+//             TextFormField(
+//               controller: emailController,
+//               decoration: const InputDecoration(
+//                 prefixIcon: Icon(Iconsax.direct_right),
+//                 labelText: TTexts.email,
+//               ),
+//             ),
+//             const SizedBox(height: TSizes.spaceBtwInputFields),
+
+//             //password
+//             TextFormField(
+//               controller: passwordController,
+//               decoration: const InputDecoration(
+//                 prefixIcon: Icon(Iconsax.password_check),
+//                 labelText: TTexts.password,
+//                 suffixIcon: Icon(Iconsax.eye_slash),
+//               ),
+//             ),
+//             const SizedBox(height: TSizes.spaceBtwInputFields / 2),
+
+//             //remember me and forget password
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 //remeberm e
+//                 Row(
+//                   children: [
+//                     Checkbox(value: true, onChanged: (value) {}),
+//                     const Text(TTexts.rememberMe),
+//                   ],
+//                 ),
+//                 //for password
+//                 TextButton(
+//                   onPressed: () {},
+//                   child: const Text(TTexts.forgotPassword),
+//                 )
+//               ],
+//             ),
+//             const SizedBox(height: TSizes.spaceBtwSections),
+
+//             //sign in button
+//             SizedBox(
+//                 width: double.infinity,
+//                 child: ElevatedButton(
+//                     onPressed: () => Get.to(() => const VehicleDetails()),
+//                     child: Text(TTexts.signIn))),
+//             const SizedBox(height: TSizes.spaceBtwItems),
+//             //xreate account button
+//             SizedBox(
+//                 width: double.infinity,
+//                 child: OutlinedButton(
+//                     onPressed: () => Get.to(() => const SignupScreen()),
+//                     child: Text(TTexts.createAccount))),
+//             // const SizedBox(height: TSizes.spaceBtwSections),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:karconnect/backend/firebase/firebase_auth.dart';
 import 'package:karconnect/common/styles/spacing_styles.dart';
 import 'package:karconnect/features/authentication/screens/signup/signup.dart';
 import 'package:karconnect/features/rent_features/screens/vehicle_details/vehicle_details.dart';
@@ -7,14 +100,28 @@ import 'package:karconnect/utils/constants/sizes.dart';
 import 'package:karconnect/utils/constants/text_strings.dart';
 import 'package:karconnect/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class TLoginForm extends StatelessWidget {
-  const TLoginForm({
-    super.key,
-  });
+class TLoginForm extends StatefulWidget {
+  const TLoginForm({super.key});
+
+  @override
+  _TLoginFormState createState() => _TLoginFormState();
+}
+
+class _TLoginFormState extends State<TLoginForm> {
+  // Create the controllers for email and password
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Dispose the controllers when the widget is disposed
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +130,9 @@ class TLoginForm extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: TSizes.spaceBtwSections),
         child: Column(
           children: [
-            //email
+            // Email
             TextFormField(
+              controller: emailController,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Iconsax.direct_right),
                 labelText: TTexts.email,
@@ -32,28 +140,30 @@ class TLoginForm extends StatelessWidget {
             ),
             const SizedBox(height: TSizes.spaceBtwInputFields),
 
-            //password
+            // Password
             TextFormField(
+              controller: passwordController,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Iconsax.password_check),
                 labelText: TTexts.password,
                 suffixIcon: Icon(Iconsax.eye_slash),
               ),
+              obscureText: true, // Add this to hide the password
             ),
             const SizedBox(height: TSizes.spaceBtwInputFields / 2),
 
-            //remember me and forget password
+            // Remember me and forgot password
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                //remeberm e
+                // Remember me
                 Row(
                   children: [
                     Checkbox(value: true, onChanged: (value) {}),
                     const Text(TTexts.rememberMe),
                   ],
                 ),
-                //for password
+                // Forgot password
                 TextButton(
                   onPressed: () {},
                   child: const Text(TTexts.forgotPassword),
@@ -62,20 +172,45 @@ class TLoginForm extends StatelessWidget {
             ),
             const SizedBox(height: TSizes.spaceBtwSections),
 
-            //sign in button
+            // Sign in button
             SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () => Get.to(() => const VehicleDetails()),
-                    child: Text(TTexts.signIn))),
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    String email = emailController.text.trim();
+                    String password = passwordController.text.trim();
+                    UserCredential? result =
+                        await signInWithEmailAndPassword(email, password);
+                    if (result != null) {
+                      // User created successfully
+                      Get.to(() => const VehicleDetails());
+                    } else {
+                      // Error occurred
+                      Get.snackbar('Error', 'User creation failed',
+                          backgroundColor: Color.fromARGB(67, 255, 255, 255),
+                          icon: Icon(Icons.warning));
+                    }
+                  },
+                  child: Text(TTexts.signIn)),
+              // child: ElevatedButton(
+              //     onPressed: () {
+              //       // Handle the sign in logic using the controllers
+              //       final email = emailController.text;
+              //       final password = passwordController.text;
+              //       // Add your sign in logic here
+
+              //       Get.to(() => const VehicleDetails());
+              //     },
+              //     child: Text(TTexts.signIn)),
+            ),
             const SizedBox(height: TSizes.spaceBtwItems),
-            //xreate account button
+
+            // Create account button
             SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
                     onPressed: () => Get.to(() => const SignupScreen()),
                     child: Text(TTexts.createAccount))),
-            // const SizedBox(height: TSizes.spaceBtwSections),
           ],
         ),
       ),
