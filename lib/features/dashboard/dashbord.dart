@@ -6,10 +6,9 @@ class dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBarCustom(),
-      appBar: AppBar(
-        title: Text("app"),
+    return SafeArea(
+      child: Scaffold(
+        bottomNavigationBar: BottomNavigationBarCustom(),
       ),
     );
   }

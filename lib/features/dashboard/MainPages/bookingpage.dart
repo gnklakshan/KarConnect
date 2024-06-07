@@ -14,8 +14,8 @@ class booking extends StatelessWidget {
           title: const Center(child: Text('booking')),
           bottom: const TabBar(
             isScrollable: false,
-            indicatorColor: Colors.deepOrange,
-            labelColor: Colors.deepOrange,
+            indicatorColor: Colors.blue,
+            labelColor: Colors.blue,
             tabs: [
               Tab(child: Text('Upcoming')),
               Tab(child: Text('Completed')),
