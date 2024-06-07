@@ -2,39 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class THelpFunctions {
+class THelperFunctions {
   static Color? getColor(String value) {
-    ///Define your product specific colors here and it will match the attribute colors and show specific
-
-    if (value == 'Green') {
+    if (value.toLowerCase() == 'green') {
       return Colors.green;
-    } else if (value == 'Green') {
-      return Colors.green;
-    } else if (value == 'Red') {
+    } else if (value.toLowerCase() == 'red') {
       return Colors.red;
-    } else if (value == 'Blue') {
+    } else if (value.toLowerCase() == 'blue') {
       return Colors.blue;
-    } else if (value == 'Pink') {
+    } else if (value.toLowerCase() == 'pink') {
       return Colors.pink;
-    } else if (value == 'Grey') {
+    } else if (value.toLowerCase() == 'grey') {
       return Colors.grey;
-    } else if (value == 'Purple') {
+    } else if (value.toLowerCase() == 'purple') {
       return Colors.purple;
-    } else if (value == 'Black') {
+    } else if (value.toLowerCase() == 'black') {
       return Colors.black;
-    } else if (value == 'White') {
+    } else if (value.toLowerCase() == 'white') {
       return Colors.white;
-    } else if (value == "Yellow") {
+    } else if (value.toLowerCase() == 'yellow') {
       return Colors.yellow;
-    } else if (value == 'Orange') {
+    } else if (value.toLowerCase() == 'orange') {
       return Colors.deepOrange;
-    } else if (value == 'Brown') {
+    } else if (value.toLowerCase() == 'brown') {
       return Colors.brown;
-    } else if (value == 'Teal') {
+    } else if (value.toLowerCase() == 'teal') {
       return Colors.teal;
-    } else if (value == 'Indigo') {
+    } else if (value.toLowerCase() == 'indigo') {
       return Colors.indigo;
     } else {
+      // Return a default color if the input value doesn't match any of the predefined colors
       return null;
     }
   }
@@ -82,20 +79,23 @@ class THelpFunctions {
     return Theme.of(context).brightness == Brightness.dark;
   }
 
-  static Size screenSize() {
-    return MediaQuery.of(Get.context!).size;
+  ////////////////////////////////////////////
+  static Size screenSize(BuildContext context) {
+    final currentContext = context ?? Get.context!;
+    return MediaQuery.of(currentContext).size;
   }
 
-  static double screenHeight() {
-    return MediaQuery.of(Get.context!).size.height;
+  static double screenHeight(BuildContext context) {
+    return MediaQuery.of(context).size.height;
   }
 
-  static double screenWidth() {
+//changed context to Get.context! below
+  static double screenWidth(BuildContext context) {
     return MediaQuery.of(Get.context!).size.width;
   }
 
   static String getFormattedDate(DateTime date,
-      {String format = 'dd MMM yyyy'}) {
+      [String format = 'dd MMM yyyy']) {
     return DateFormat(format).format(date);
   }
 
@@ -103,13 +103,15 @@ class THelpFunctions {
     return list.toSet().toList();
   }
 
-  static List<Widget> wrapWidget(List<Widget> widgets, int rowSize) {
+  static List<Widget> wrapWidgets(List<Widget> widgets, int rowSize) {
     final wrappedList = <Widget>[];
+
     for (var i = 0; i < widgets.length; i += rowSize) {
       final rowChildren = widgets.sublist(
           i, i + rowSize > widgets.length ? widgets.length : i + rowSize);
       wrappedList.add(Row(children: rowChildren));
     }
+
     return wrappedList;
   }
 }

@@ -1,0 +1,9 @@
+
+//list of enums
+//theu cant be created inside classes
+
+enum TextSizes{ small, medium, large };
+
+enum OrderStatus { processing, shipprd , delivered };
+
+enum PayementMethods { paypal , googlePay};

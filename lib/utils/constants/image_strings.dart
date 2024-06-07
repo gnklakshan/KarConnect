@@ -1,20 +1,21 @@
-///this class constains all the App Images in STring formats
 class TImages {
-  //--App Logos
+  // App Logos
   static const String darkAppLogo =
-      ""; //add the assets/logps/t-store-splash-logo-black.png
-  static const String lightApplogo =
-      " "; //add assets/logos/t-store-spalsh-logo-wite.png
+      "assets/logos/vecteezy_green-energy-logo-element-electric-renewable-power-leaf_35527901.png";
+  static const String lightAppLogo =
+      "assets/logos/vecteezy_green-energy-logo-element-electric-renewable-power-leaf_35527901.png";
 
-  //--Social Logos
-  static const String google = ""; //add assets/logos/google-icon.png
-  static const String facebook = ""; //add assets/logos/facebook-icon.png
+  // Social Logos
+  static const String google = "assets/logos/google-icon.png";
+  static const String facebook = "assets/logos/facebook-icon.png";
 
-  //--OnBoarding Images
-//   static const String onBoardingImage1 =
-//       "assets/images/on_boarding_images/sammy-line-delivery-with-gps-navigation.gif";
-//   static const String onBoardingImage2 =
-//       "assets/images/on_boarding_images/sammy-line-man-leaning-on-a-growth-chart-while-tossing-a-coin.gif";
-//   static const String onBoardingImage3 =
-//       "assets/images/on_boarding_images/sammy-line-woman-on-skateboard-with-file-folders.gif";
+  static const String OnBoardingImage1 =
+      "assets/images/on_boarding/684c748398f451ce16628882f24dafb5.gif";
+  static const String OnBoardingImage2 =
+      "assets/images/on_boarding/image_processing20200203-9433-1r0ctt5.gif";
+  static const String OnBoardingImage3 =
+      "assets/images/on_boarding/image_processing20210914-22954-62cyys.gif";
+
+  static const String verifyIllustration =
+      "assets/images/animations/sent-mail.gif";
 }

@@ -1,6 +1,5 @@
-///List of Constants used on API
+//lst of constants used in APIs
 
 class APIConstants {
-  static const String tSecretAPIKey =
-      "ctw_live-b2da6ds3df3e785v8ddc59198f7615ba";
+  static const String tSecretAPIKey = "sdfghj";
 }
