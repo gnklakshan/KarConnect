@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:karconnect/dummy_temp.dart';
 
 Card BrandCard(String name, String path) {
   return Card(
@@ -15,7 +16,7 @@ Card BrandCard(String name, String path) {
     child: Padding(
       padding: EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () => Get.toNamed('/SearchVehicle'),
+        onTap: () => Get.to(() => const dummy()),
         child: Column(
           children: [
             Image.network(
