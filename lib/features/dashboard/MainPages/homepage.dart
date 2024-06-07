@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:karconnect/backend/data_retrieve/temp_dynamic_list.dart';
+import 'package:karconnect/backend/data_retrieve/vehicle_card_dynamicList.dart';
 // import 'package:karconnect/backend/temp_dynamic_list.dart';
 // import 'package:karconnect/backend/vehicle_card_dynamicList.dart';
 
@@ -21,17 +23,17 @@ class Home extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  // Brand_list(collectionName: "car_brands"),
-                  // const SizedBox(
-                  //   height: 15,
-                  // ),
-                  // List_Title("Recent Best Cars", context),
-                  // const SizedBox(
-                  //   height: 15,
-                  // ),
-                  // vehicle_card_list(
-                  //   collectionName: 'vehicle_db',
-                  // ),
+                  Brand_list(collectionName: "car_brands"),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  List_Title("Recent Best Cars", context),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  vehicle_card_list(
+                    collectionName: 'vehicle_db',
+                  ),
 
                   // // GestureDetector(
                   // //     onTap: () => Get.toNamed('/details'),

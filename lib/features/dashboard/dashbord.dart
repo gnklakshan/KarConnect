@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:karconnect/utils/bottomNavigationBar/bottomNavBar.dart';
+import 'package:karconnect/features/bottomNavigationBar/bottomNavBar.dart';
 
 class dashboard extends StatelessWidget {
   const dashboard({super.key});
