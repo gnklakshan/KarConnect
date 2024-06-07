@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:karconnect/dummy_temp.dart';
+import 'package:karconnect/features/rent_features/screens/vehicle_details/vehicle_details.dart';
 
 class vehicle_card extends StatelessWidget {
   final String VehicleName;
@@ -15,7 +17,7 @@ class vehicle_card extends StatelessWidget {
     return Container(
       width: 150,
       child: GestureDetector(
-        onTap: () => Get.to(() => {}),
+        onTap: () => Get.to(() => const VehicleDetails()),
         child: Card.filled(
             elevation: 2,
             shape: RoundedRectangleBorder(
