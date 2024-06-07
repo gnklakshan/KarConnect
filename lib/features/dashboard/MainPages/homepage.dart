@@ -3,57 +3,58 @@ import 'package:get/get.dart';
 import 'package:karconnect/backend/data_retrieve/temp_dynamic_list.dart';
 import 'package:karconnect/backend/data_retrieve/vehicle_card_dynamicList.dart';
 import 'package:karconnect/dummy_temp.dart';
-// import 'package:karconnect/backend/temp_dynamic_list.dart';
-// import 'package:karconnect/backend/vehicle_card_dynamicList.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: LocationBar(context),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  List_Title("Top Brand", context),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Brand_list(collectionName: "car_brands"),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  List_Title("Recent Best Cars", context),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  vehicle_card_list(
-                    collectionName: 'vehicle_db',
-                  ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 12),
+      child: Scaffold(
+          appBar: LocationBar(context),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    List_Title("Top Brand", context),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Brand_list(collectionName: "car_brands"),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    List_Title("Recent Best Cars", context),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    vehicle_card_list(
+                      collectionName: 'vehicle_db',
+                    ),
 
-                  // GestureDetector(
-                  //     onTap: () => Get.toNamed('/details'),
-                  //     child: const vehicle_card()),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  List_Title("Available Near you", context),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  vehicle_card_list(
-                    collectionName: 'vehicle_db',
-                  ),
-                ],
+                    // GestureDetector(
+                    //     onTap: () => Get.toNamed('/details'),
+                    //     child: const vehicle_card()),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    List_Title("Available Near you", context),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    vehicle_card_list(
+                      collectionName: 'vehicle_db',
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 
   Row List_Title(String Topic, BuildContext context) {
