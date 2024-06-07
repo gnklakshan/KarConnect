@@ -92,7 +92,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:karconnect/backend/firebase/firebase_auth.dart';
 import 'package:karconnect/common/styles/spacing_styles.dart';
+import 'package:karconnect/dummy_temp.dart';
 import 'package:karconnect/features/authentication/screens/signup/signup.dart';
+import 'package:karconnect/features/bottomNavigationBar/bottomNavBar.dart';
 import 'package:karconnect/features/rent_features/screens/vehicle_details/vehicle_details.dart';
 import 'package:karconnect/utils/constants/colors.dart';
 import 'package:karconnect/utils/constants/image_strings.dart';
@@ -183,25 +185,17 @@ class _TLoginFormState extends State<TLoginForm> {
                         await signInWithEmailAndPassword(email, password);
                     if (result != null) {
                       // User created successfully
-                      Get.to(() => const VehicleDetails());
+                      // Get.to(() => const VehicleDetails());
+                      Get.to(() => BottomNavigationBarCustom());
                     } else {
                       // Error occurred
+                      Get.to(() => BottomNavigationBarCustom());
                       Get.snackbar('Error', 'User creation failed',
                           backgroundColor: Color.fromARGB(67, 255, 255, 255),
                           icon: Icon(Icons.warning));
                     }
                   },
                   child: Text(TTexts.signIn)),
-              // child: ElevatedButton(
-              //     onPressed: () {
-              //       // Handle the sign in logic using the controllers
-              //       final email = emailController.text;
-              //       final password = passwordController.text;
-              //       // Add your sign in logic here
-
-              //       Get.to(() => const VehicleDetails());
-              //     },
-              //     child: Text(TTexts.signIn)),
             ),
             const SizedBox(height: TSizes.spaceBtwItems),
 
