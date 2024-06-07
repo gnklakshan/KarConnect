@@ -1,3 +1,4 @@
+import 'package:karconnect/backend/firebase/firebase_auth.dart';
 import 'package:karconnect/features/authentication/screens/signup/widgets/terms_conditions_checkbox.dart';
 import 'package:karconnect/features/authentication/screens/signup/widgets/verify_email.dart';
 import 'package:karconnect/utils/constants/sizes.dart';
@@ -6,10 +7,35 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class TSignupForm extends StatelessWidget {
+class TSignupForm extends StatefulWidget {
   const TSignupForm({
     super.key,
   });
+
+  @override
+  _TSignupFormState createState() => _TSignupFormState();
+}
+
+class _TSignupFormState extends State<TSignupForm> {
+  // Create the controllers for the form fields
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneNoController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Dispose the controllers when the widget is disposed
+    firstNameController.dispose();
+    lastNameController.dispose();
+    usernameController.dispose();
+    emailController.dispose();
+    phoneNoController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +46,7 @@ class TSignupForm extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
-                  expands: false,
+                  controller: firstNameController,
                   decoration: const InputDecoration(
                       labelText: TTexts.firstName,
                       prefixIcon: Icon(Iconsax.user)),
@@ -31,7 +57,7 @@ class TSignupForm extends StatelessWidget {
               ),
               Expanded(
                 child: TextFormField(
-                  expands: false,
+                  controller: lastNameController,
                   decoration: const InputDecoration(
                       labelText: TTexts.lastName,
                       prefixIcon: Icon(Iconsax.user)),
@@ -39,63 +65,79 @@ class TSignupForm extends StatelessWidget {
               ),
             ],
           ),
-
           const SizedBox(
             height: TSizes.spaceBtwInputFields,
           ),
-          //username
+          // Username
           TextFormField(
-            expands: false,
+            controller: usernameController,
             decoration: const InputDecoration(
                 labelText: TTexts.username,
                 prefixIcon: Icon(Iconsax.user_edit)),
           ),
           const SizedBox(
-            width: TSizes.spaceBtwInputFields,
+            height: TSizes.spaceBtwInputFields,
           ),
-          //Email
+          // Email
           TextFormField(
+            controller: emailController,
             decoration: const InputDecoration(
                 labelText: TTexts.email, prefixIcon: Icon(Iconsax.direct)),
           ),
           const SizedBox(
-            width: TSizes.spaceBtwInputFields,
+            height: TSizes.spaceBtwInputFields,
           ),
-
-          //phonenumber
+          // Phone Number
           TextFormField(
+            controller: phoneNoController,
             decoration: const InputDecoration(
                 labelText: TTexts.phoneNo, prefixIcon: Icon(Iconsax.call)),
           ),
           const SizedBox(
-            width: TSizes.spaceBtwInputFields,
+            height: TSizes.spaceBtwInputFields,
           ),
-
-          //password
-
+          // Password
           TextFormField(
+            controller: passwordController,
             obscureText: true,
             decoration: const InputDecoration(
-              labelText: TTexts.phoneNo,
+              labelText: TTexts.password,
               prefixIcon: Icon(Iconsax.password_check),
               suffixIcon: Icon(Iconsax.eye_slash),
             ),
           ),
           const SizedBox(
-            width: TSizes.spaceBtwInputFields,
+            height: TSizes.spaceBtwInputFields,
           ),
-
-          //terms and conditions checkbox
+          // Terms and conditions checkbox
           const TTermsAndConditionsCheckbox(),
-
           const SizedBox(
             height: TSizes.spaceBtwSections,
           ),
-          //signup utton
+          // Sign up button
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-                onPressed: () => Get.to(() => const VerifyEmailScreen()),
+                onPressed: () async {
+                  // Handle sign up logic here using the controllers
+                  final firstName = firstNameController.text;
+                  final lastName = lastNameController.text;
+                  final username = usernameController.text;
+                  final email = emailController.text;
+                  final phoneNo = phoneNoController.text;
+                  final password = passwordController.text;
+                  final newuser =
+                      await registerWithEmailAndPassword(email, password);
+
+                  if (newuser != null) {
+                    Get.to(() => const VerifyEmailScreen());
+                  } else {
+                    Get.snackbar('Error', 'User creation failed',
+                        backgroundColor:
+                            const Color.fromARGB(112, 255, 255, 255),
+                        icon: Icon(Icons.warning));
+                  }
+                },
                 child: const Text(TTexts.createAccount)),
           )
         ],
