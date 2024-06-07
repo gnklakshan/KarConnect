@@ -4,6 +4,7 @@ import 'package:karconnect/common/widgets/custom_widgets/curved_edges/t_circular
 import 'package:karconnect/common/widgets/images/t_rounded_images.dart';
 import 'package:karconnect/features/rent_features/screens/vehicle_details/vehicle_detail_image_slider.dart';
 import 'package:karconnect/features/rent_features/screens/vehicle_details/widgets/rating_share_widget.dart';
+import 'package:karconnect/features/rent_features/screens/vehicle_details/widgets/rent_owner_tab.dart';
 import 'package:karconnect/features/rent_features/screens/vehicle_details/widgets/vehicle_meta_data.dart';
 import 'package:karconnect/utils/constants/colors.dart';
 import 'package:karconnect/utils/constants/image_strings.dart';
@@ -20,33 +21,42 @@ class VehicleDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-    return const Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            //vehicle image slider
-            TVehicleImageSlider(),
+    return const SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              //vehicle image slider
+              TVehicleImageSlider(),
 
-            //vehicle details
-            Padding(
-              padding: EdgeInsets.only(
-                  right: TSizes.defaultSpace,
-                  left: TSizes.defaultSpace,
-                  bottom: TSizes.defaultSpace),
-              child: Column(
-                children: [
-                  //rating and share
-                  TRatingAndShare(),
-                  //price.title.stock brand
-                  TVehicleMetaData()
-                  //sttribute
-                  //checkoutbutton
-                  //description
-                  //reviewa
-                ],
-              ),
-            )
-          ],
+              //vehicle details
+              Padding(
+                padding: EdgeInsets.only(
+                    right: TSizes.defaultSpace,
+                    left: TSizes.defaultSpace,
+                    bottom: TSizes.defaultSpace),
+                child: Column(
+                  children: [
+                    //rating and share
+                    TRatingAndShare(),
+
+                    //owner message call tab
+                    TRentOwnerDetailsTab(),
+                    SizedBox(
+                      height: TSizes.spaceBtwItems * 0.5,
+                    ),
+
+                    //price.title.stock brand
+                    TVehicleMetaData()
+                    //sttribute
+                    //checkoutbutton
+                    //description
+                    //reviewa
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
