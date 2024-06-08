@@ -11,7 +11,13 @@ class booking extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Center(child: Text('booking')),
+          title: const Center(
+              child: Text(
+            'Booking',
+            style: TextStyle(
+              fontSize: 18.0,
+            ),
+          )),
           bottom: const TabBar(
             isScrollable: false,
             indicatorColor: Colors.blue,

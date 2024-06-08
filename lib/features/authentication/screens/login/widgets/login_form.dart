@@ -92,11 +92,13 @@ class _TLoginFormState extends State<TLoginForm> {
                       Get.to(() => dashboard());
                     } else {
                       // Error occurred
-                      Get.to(() => dashboard());
+                      // Get.to(() => dashboard());
                       Get.snackbar('Error', 'User creation failed',
                           backgroundColor: Color.fromARGB(67, 255, 255, 255),
                           icon: Icon(Icons.warning));
                     }
+                    final uid = FirebaseAuth.instance.currentUser!.uid;
+                    print(uid.toString());
                   },
                   child: Text(TTexts.signIn)),
             ),

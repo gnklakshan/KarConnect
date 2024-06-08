@@ -1,100 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:karconnect/dummy_temp.dart';
-// import 'package:karconnect/features/rent_features/screens/vehicle_details/vehicle_details.dart';
-
-// class vehicle_card extends StatelessWidget {
-//   final String VehicleName;
-//   final int price;
-//   const vehicle_card(
-//     this.VehicleName,
-//     this.price, {
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: 150,
-//       child: GestureDetector(
-//         onTap: () => Get.to(() => const VehicleDetails()),
-//         child: Card.filled(
-//             elevation: 2,
-//             shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(20),
-//             ),
-//             // color: Color.fromARGB(255, 255, 255, 255),
-//             child: Column(
-//               children: [
-//                 Card(
-//                     elevation: 2,
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(20),
-//                     ),
-//                     child: ClipRRect(
-//                       borderRadius: BorderRadius.circular(20.0),
-//                       child: Image.asset(
-//                         'assets/images/car.jpg',
-//                         fit: BoxFit.fill,
-//                       ),
-//                     )),
-//                 vehicle_card_details(context, VehicleName, price),
-//               ],
-//             )),
-//       ),
-//     );
-//   }
-// }
-
-// Padding vehicle_card_details(
-//     BuildContext context, String VehicleName, int price) {
-//   return Padding(
-//     padding: const EdgeInsets.all(8.0),
-//     child: Column(
-//       children: [
-//         Align(
-//           alignment: Alignment.bottomLeft,
-//           child: Text(
-//             VehicleName,
-//             style: TextStyle(
-//                 fontSize: 15.0,
-//                 fontWeight: FontWeight.w600,
-//                 color: Color.fromARGB(255, 0, 0, 0)),
-//           ),
-//         ),
-//         const Row(
-//           children: [
-//             Icon(
-//               Icons.star_border,
-//               color: Colors.deepOrange,
-//               size: 18,
-//             ),
-//             Icon(
-//               Icons.star_border,
-//               color: Colors.deepOrange,
-//               size: 18,
-//             ),
-//             Icon(
-//               Icons.star_border,
-//               color: Colors.deepOrange,
-//               size: 18,
-//             ),
-//             Icon(
-//               Icons.star_border,
-//               size: 18,
-//             ),
-//             Icon(
-//               Icons.star_border,
-//               size: 18,
-//             )
-//           ],
-//         ),
-//         Align(alignment: Alignment.bottomLeft, child: Text(" Rs $price/Day"))
-//       ],
-//     ),
-//   );
-// }
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:karconnect/features/rent_features/screens/vehicle_details/vehicle_details.dart';
@@ -102,10 +5,12 @@ import 'package:karconnect/features/rent_features/screens/vehicle_details/vehicl
 class vehicle_card extends StatelessWidget {
   final String vehicleName;
   final int price;
+  final String mainImage;
 
   const vehicle_card(
     this.vehicleName,
-    this.price, {
+    this.price,
+    this.mainImage, {
     super.key,
   });
 
@@ -121,9 +26,12 @@ class vehicle_card extends StatelessWidget {
           elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
+            side: BorderSide(
+              color: theme.dividerColor.withOpacity(0.4),
+              width: 0.5,
+            ),
           ),
-          color: theme
-              .scaffoldBackgroundColor, // Use the primary color from the theme
+          color: theme.scaffoldBackgroundColor,
           child: Column(
             children: [
               Card(
@@ -133,10 +41,16 @@ class vehicle_card extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0),
-                  child: Image.asset(
-                    'assets/images/car.jpg',
+                  child: FadeInImage(
+                    placeholder: AssetImage('assets/images/car.jpg'),
+                    image: NetworkImage(mainImage),
                     fit: BoxFit.fill,
+                    placeholderFit: BoxFit.fill,
                   ),
+                  // child: Image.asset(
+                  //   'assets/images/car.jpg',
+                  //   fit: BoxFit.fill,
+                  // ),
                 ),
               ),
               vehicle_cardDetails(context, vehicleName, price),

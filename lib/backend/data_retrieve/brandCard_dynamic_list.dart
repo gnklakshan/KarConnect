@@ -9,7 +9,7 @@ class Brand_list extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 110,
+      height: 112,
       child: FutureBuilder<List<Map<String, dynamic>>>(
         future: CollectionDataService().get_collection_data(collectionName),
         builder: (BuildContext context,
@@ -28,7 +28,7 @@ class Brand_list extends StatelessWidget {
               itemBuilder: (context, index) {
                 String name = data_list[index]["name"];
                 String image_url = data_list[index]["url"];
-                return BrandCard(name, image_url);
+                return BrandCard(context, name, image_url);
               },
             );
           }

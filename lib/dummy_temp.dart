@@ -1,5 +1,25 @@
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:flutter/material.dart';
+
+// class dummy extends StatelessWidget {
+//   const dummy({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final uid = FirebaseAuth.instance.currentUser!.uid;
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("dummy $uid"),
+//       ),
+//       body: Center(child: Text("Need To Design")),
+//     );
+//   }
+// }
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:karconnect/features/bottomNavigationBar/bottomNavBar.dart';
+import 'package:karconnect/backend/firebase/firebase_auth.dart';
 
 class dummy extends StatelessWidget {
   const dummy({super.key});
@@ -8,7 +28,7 @@ class dummy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dummy"),
+        title: Center(child: Text("dummy ")),
       ),
       body: Center(child: Text("Need To Design")),
     );

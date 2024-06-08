@@ -118,27 +118,47 @@ class _TSignupFormState extends State<TSignupForm> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-                onPressed: () async {
-                  // Handle sign up logic here using the controllers
-                  final firstName = firstNameController.text;
-                  final lastName = lastNameController.text;
-                  final username = usernameController.text;
-                  final email = emailController.text;
-                  final phoneNo = phoneNoController.text;
-                  final password = passwordController.text;
+              onPressed: () async {
+                final firstName = firstNameController.text;
+                final lastName = lastNameController.text;
+                final username = usernameController.text;
+                final email = emailController.text;
+                final phoneNo = phoneNoController.text;
+                final password = passwordController.text;
+                if (firstName.isEmpty ||
+                    lastName.isEmpty ||
+                    username.isEmpty ||
+                    email.isEmpty ||
+                    password.isEmpty ||
+                    phoneNo.isEmpty) {
+                  Get.snackbar(
+                    'Error',
+                    'Fill Required Data Fields Correctly',
+                    backgroundColor: Color.fromARGB(92, 240, 240, 240),
+                    icon: const Icon(
+                      Icons.warning,
+                      color: Color.fromARGB(225, 251, 3, 3),
+                    ),
+                  );
+                } else {
                   final newuser =
                       await registerWithEmailAndPassword(email, password);
 
                   if (newuser != null) {
+                    addNewUser(firstName, lastName, username, email, phoneNo);
                     Get.to(() => const VerifyEmailScreen());
                   } else {
-                    Get.snackbar('Error', 'User creation failed',
-                        backgroundColor:
-                            const Color.fromARGB(112, 255, 255, 255),
-                        icon: Icon(Icons.warning));
+                    Get.snackbar(
+                      'Error',
+                      'User creation failed',
+                      backgroundColor: Color.fromARGB(112, 255, 255, 255),
+                      icon: Icon(Icons.warning),
+                    );
                   }
-                },
-                child: const Text(TTexts.createAccount)),
+                }
+              },
+              child: const Text('Create Account'),
+            ),
           )
         ],
       ),

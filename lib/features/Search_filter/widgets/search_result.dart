@@ -35,10 +35,11 @@ class Search_result_list extends StatelessWidget {
               itemBuilder: (context, index) {
                 String name = data_list[index]["name"];
                 int price = data_list[index]["price"];
+                String image = data_list[index]["main_image"];
                 return Padding(
                   padding: const EdgeInsets.only(
                       right: 4.0, left: 4), // Adjust the padding as needed
-                  child: vehicle_card(name, price),
+                  child: vehicle_card(name, price, image),
                 );
                 // return vehicle_card(name, price);
               },
