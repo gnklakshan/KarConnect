@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:karconnect/backend/data_retrieve/fetch_single_vehicle_data.dart';
 import 'package:karconnect/features/rent_features/screens/vehicle_details/vehicle_details.dart';
 
 class vehicle_card_search extends StatelessWidget {
   final String vehicleName;
   final int price;
   final String mainImage;
+  final String docID;
 
   const vehicle_card_search(
     this.vehicleName,
     this.price,
-    this.mainImage, {
+    this.mainImage,
+    this.docID, {
     super.key,
   });
 
@@ -21,7 +25,10 @@ class vehicle_card_search extends StatelessWidget {
     return Container(
       width: 150,
       child: GestureDetector(
-        onTap: () => Get.to(() => const VehicleDetails()),
+        onTap: () => Get.to(() => fetch_vehicle_Data(
+              collectionName: 'vehicle_db',
+              docId: docID,
+            )),
         child: Card(
           elevation: 2,
           shape: RoundedRectangleBorder(
@@ -65,14 +72,21 @@ Padding vehicle_cardDetails(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          vehicleName,
-          style: TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.w600,
-            color: theme.textTheme.bodyMedium
-                ?.color, // Use the text color from the theme
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                vehicleName,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w600,
+                  color: theme.textTheme.bodyMedium
+                      ?.color, // Use the text color from the theme
+                ),
+              ),
+            ),
+            Icon(Iconsax.heart),
+          ],
         ),
         const Row(
           children: [

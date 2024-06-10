@@ -98,8 +98,8 @@ class _TLoginFormState extends State<TLoginForm> {
                           backgroundColor: Color.fromARGB(67, 255, 255, 255),
                           icon: Icon(Icons.warning));
                     }
-                    final uid = FirebaseAuth.instance.currentUser!.uid;
-                    print(uid.toString());
+                    // final uid = FirebaseAuth.instance.currentUser!.uid;
+                    // print(uid.toString());
                   },
                   child: Text(TTexts.signIn)),
             ),

@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class TVehicleImageSlider extends StatelessWidget {
-  const TVehicleImageSlider({
+  final String img_url;
+  const TVehicleImageSlider(
+    this.img_url, {
     super.key,
   });
 
@@ -24,11 +26,12 @@ class TVehicleImageSlider extends StatelessWidget {
         child: Stack(
           children: [
             //main large image
-            const SizedBox(
+            SizedBox(
                 height: 400,
                 child: Padding(
                   padding: const EdgeInsets.all(TSizes.productImageRadius * 2),
-                  child: Center(child: Image(image: AssetImage(TImages.car))),
+                  child: Center(child: Image(image: NetworkImage(img_url))),
+                  // child: Image(image: AssetImage('assets/images/car.jpg'))),
                 )),
             //image slider
             Positioned(
@@ -50,7 +53,7 @@ class TVehicleImageSlider extends StatelessWidget {
                     border: Border.all(color: TColors.primary),
                     padding: const EdgeInsets.all(TSizes.sm),
                     backgroundColor: dark ? TColors.dark : TColors.white,
-                    imageUrl: TImages.car,
+                    imageUrl: 'assets/images/car.jpg',
                   ),
                 ),
               ),

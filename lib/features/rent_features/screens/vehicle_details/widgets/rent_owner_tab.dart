@@ -76,7 +76,9 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class TRentOwnerDetailsTab extends StatelessWidget {
-  const TRentOwnerDetailsTab({
+  final String owner;
+  const TRentOwnerDetailsTab(
+    this.owner, {
     super.key,
   });
 
@@ -109,7 +111,7 @@ class TRentOwnerDetailsTab extends StatelessWidget {
               Text.rich(TextSpan(
                 children: [
                   TextSpan(
-                      text: "Sajith Perera",
+                      text: owner,
                       style: Theme.of(context).textTheme.bodyLarge),
                   // const TextSpan(text: "  (258)"),
                 ],

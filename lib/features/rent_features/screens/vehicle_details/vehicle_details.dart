@@ -22,7 +22,17 @@ import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 
 class VehicleDetails extends StatelessWidget {
-  const VehicleDetails({
+  final String VehicleName;
+  final int price;
+  final String owner;
+  final String img_url;
+  final String description;
+  const VehicleDetails(
+    this.VehicleName,
+    this.price,
+    this.owner,
+    this.img_url,
+    this.description, {
     super.key,
   });
 
@@ -35,7 +45,7 @@ class VehicleDetails extends StatelessWidget {
           child: Column(
             children: [
               //vehicle image slider
-              const TVehicleImageSlider(),
+              TVehicleImageSlider(img_url),
 
               //vehicle details
               Padding(
@@ -49,19 +59,20 @@ class VehicleDetails extends StatelessWidget {
                     const TRatingAndShare(),
 
                     //owner message call tab
-                    const TRentOwnerDetailsTab(),
+                    TRentOwnerDetailsTab(owner),
                     const SizedBox(
                       height: TSizes.spaceBtwItems * 0.5,
                     ),
 
                     //price.title.stock brand
-                    const TVehicleMetaData(),
+                    TVehicleMetaData(VehicleName, price),
 
                     //sttribute
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(left: 0, right: 30),
                       child: Text(
-                        TTexts.yourAccountCreatedSubTitle,
+                        description,
+                        // TTexts.yourAccountCreatedSubTitle,
                         maxLines: 3,
                       ),
                     ),

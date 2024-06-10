@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:karconnect/backend/data_retrieve/dataservice_from_collection.dart';
 import 'package:karconnect/backend/firebase/firebase_auth.dart';
 import 'package:karconnect/dummy_temp.dart';
 import 'package:karconnect/features/authentication/screens/login/login.dart';
@@ -10,8 +11,27 @@ import 'package:karconnect/utils/constants/sizes.dart';
 import 'package:karconnect/utils/helpers/helper_functions.dart';
 import 'package:karconnect/utils/theme/custom_themes/outlined_button_theme.dart';
 
-class profile extends StatelessWidget {
+class profile extends StatefulWidget {
   const profile({super.key});
+
+  @override
+  State<profile> createState() => _profileState();
+}
+
+class _profileState extends State<profile> {
+  String username = "";
+  String? link;
+
+  @override
+  void initState() {
+    super.initState();
+    CollectionDataService().get_user_data().then((value) {
+      setState(() {
+        username = value?['username'];
+        link = value?['link'];
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +66,7 @@ class profile extends StatelessWidget {
               ),
               const SizedBox(height: TSizes.defaultSpace),
               Text(
-                "username", // Retrieve the username from the DB
+                username!, // Retrieve the username from the DB
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium,
               ),

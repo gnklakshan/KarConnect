@@ -7,7 +7,9 @@ import 'package:karconnect/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class TVehicleMetaData extends StatelessWidget {
-  const TVehicleMetaData({super.key});
+  final String VehicleName;
+  final int price;
+  const TVehicleMetaData(this.VehicleName, this.price, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +19,8 @@ class TVehicleMetaData extends StatelessWidget {
       children: [
         //title
 
-        const TVehicleTitleText(
-          title: "Mesarati MC20",
+        TVehicleTitleText(
+          title: VehicleName,
           smallSize: true,
         ),
         const SizedBox(
@@ -45,17 +47,14 @@ class TVehicleMetaData extends StatelessWidget {
             ),
 
             //price
-            Text(
-              "LKR 2500",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleSmall!
-                  .apply(decoration: TextDecoration.lineThrough),
-            ),
+
+            TVehiclePriceText(price: '$price', isLarge: true),
             const SizedBox(
-              width: TSizes.spaceBtwItems,
+              width: TSizes.spaceBtwItems * 0.5,
             ),
-            const TVehiclePriceText(price: '1750', isLarge: true)
+            Text("/ Per DAY", style: Theme.of(context).textTheme.titleSmall!
+                // .apply(decoration: TextDecoration.lineThrough),
+                ),
           ],
         ),
 
