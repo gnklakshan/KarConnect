@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:karconnect/backend/data_retrieve/dataservice_from_collection.dart';
-import 'package:karconnect/features/dashboard/widgets_class/vehicleCard.dart';
+import 'package:karconnect/features/Search_filter/widgets/vehiclecard_dup.dart';
 
 class Search_result_list extends StatelessWidget {
   final String collectionName;
@@ -15,7 +15,7 @@ class Search_result_list extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 500,
       child: FutureBuilder<List<Map<String, dynamic>>>(
         future: CollectionDataService().getFilteredCollectionData(
@@ -30,20 +30,38 @@ class Search_result_list extends StatelessWidget {
             return const Center(child: Text('No search result available'));
           } else {
             List<Map<String, dynamic>> data_list = snapshot.data!;
-            return ListView.builder(
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 4.0,
+                mainAxisSpacing: 4.0,
+              ),
               itemCount: data_list.length,
               itemBuilder: (context, index) {
                 String name = data_list[index]["name"];
                 int price = data_list[index]["price"];
                 String image = data_list[index]["main_image"];
                 return Padding(
-                  padding: const EdgeInsets.only(
-                      right: 4.0, left: 4), // Adjust the padding as needed
-                  child: vehicle_card(name, price, image),
+                  padding:
+                      const EdgeInsets.all(4.0), // Adjust the padding as needed
+                  child: vehicle_card_search(name, price, image),
                 );
-                // return vehicle_card(name, price);
               },
             );
+            // return ListView.builder(
+            //   itemCount: data_list.length,
+            //   itemBuilder: (context, index) {
+            //     String name = data_list[index]["name"];
+            //     int price = data_list[index]["price"];
+            //     String image = data_list[index]["main_image"];
+            //     return Padding(
+            //       padding: const EdgeInsets.only(
+            //           right: 4.0, left: 4), // Adjust the padding as needed
+            //       child: vehicle_card(name, price, image),
+            //     );
+            //     // return vehicle_card(name, price);
+            //   },
+            // );
           }
         },
       ),

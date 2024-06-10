@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:karconnect/features/Search_filter/search_filter.dart';
 import 'package:karconnect/features/dashboard/MainPages/bookingpage.dart';
 import 'package:karconnect/features/dashboard/MainPages/homepage.dart';
+import 'package:karconnect/features/dashboard/MainPages/massagepage.dart';
 import 'package:karconnect/features/dashboard/MainPages/profilepage.dart';
 import 'package:karconnect/utils/theme/theme.dart'; // Import your custom theme
 
@@ -20,7 +20,7 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
   static const List<Widget> _widgetOptions = <Widget>[
     Home(),
     booking(),
-    SearchVehicle(),
+    explore(),
     profile(),
   ];
 

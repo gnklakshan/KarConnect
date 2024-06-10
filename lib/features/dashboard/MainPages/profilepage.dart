@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:karconnect/backend/firebase/firebase_auth.dart';
+import 'package:karconnect/dummy_temp.dart';
+import 'package:karconnect/features/authentication/screens/login/login.dart';
+import 'package:karconnect/features/dashboard/MainPages/bookingpage.dart';
 import 'package:karconnect/utils/constants/sizes.dart';
 import 'package:karconnect/utils/helpers/helper_functions.dart';
 import 'package:karconnect/utils/theme/custom_themes/outlined_button_theme.dart';
@@ -32,7 +37,7 @@ class profile extends StatelessWidget {
               Center(
                 child: ClipOval(
                   child: Image.asset(
-                    'assets/images/car.jpg',
+                    'assets/images/profile.jpg',
                     width: 150,
                     height: 150,
                     fit: BoxFit.cover,
@@ -52,17 +57,19 @@ class profile extends StatelessWidget {
                 context: context,
                 icon: Iconsax.people,
                 label: "Profile",
-                onPressed: () {}, // Add path to profile screen
+                onPressed: () =>
+                    Get.to(() => dummy()), // Add path to profile screen
               ),
 
               /// Booking option
               const SizedBox(height: TSizes.defaultSpace * 0.1),
               buildProfileOption(
-                context: context,
-                icon: Iconsax.calendar,
-                label: "Bookings",
-                onPressed: () {}, // Add path to booking screen
-              ),
+                  context: context,
+                  icon: Iconsax.calendar,
+                  label: "Bookings",
+                  onPressed: () => Get.to(
+                      () => const booking()) // Add path to booking screen
+                  ),
 
               /// Wishlist
               const SizedBox(height: TSizes.defaultSpace * 0.1),
@@ -70,7 +77,8 @@ class profile extends StatelessWidget {
                 context: context,
                 icon: Iconsax.heart,
                 label: "Wishlist",
-                onPressed: () {}, // Add path to wishlist screen
+                onPressed: () =>
+                    Get.to(() => dummy()), // Add path to wishlist screen
               ),
 
               /// FAQs
@@ -79,7 +87,8 @@ class profile extends StatelessWidget {
                 context: context,
                 icon: Iconsax.message_question,
                 label: "FAQs",
-                onPressed: () {}, // Add path to FAQs screen
+                onPressed: () =>
+                    Get.to(() => dummy()), // Add path to FAQs screen
               ),
 
               /// Policy
@@ -88,7 +97,8 @@ class profile extends StatelessWidget {
                 context: context,
                 icon: Iconsax.document_text,
                 label: "Policy",
-                onPressed: () {}, // Add path to policy screen
+                onPressed: () =>
+                    Get.to(() => dummy()), // Add path to policy screen
               ),
 
               /// Settings
@@ -97,7 +107,8 @@ class profile extends StatelessWidget {
                 context: context,
                 icon: Iconsax.setting_2,
                 label: "Settings",
-                onPressed: () {}, // Add path to settings screen
+                onPressed: () =>
+                    Get.to(() => dummy()), // Add path to settings screen
               ),
 
               /// Help and Support
@@ -106,7 +117,8 @@ class profile extends StatelessWidget {
                 context: context,
                 icon: Iconsax.support,
                 label: "Help and Support",
-                onPressed: () {}, // Add path to help and support screen
+                onPressed: () => Get.to(
+                    () => dummy()), // Add path to help and support screen
               ),
 
               /// Rate Our App
@@ -115,7 +127,20 @@ class profile extends StatelessWidget {
                 context: context,
                 icon: Iconsax.like_1,
                 label: "Rate our App",
-                onPressed: () {}, // Add path to rate our app screen
+                onPressed: () =>
+                    Get.to(() => dummy()), // Add path to rate our app screen
+              ),
+
+              /// Signed out
+              const SizedBox(height: TSizes.defaultSpace * 0.1),
+              buildProfileOption(
+                context: context,
+                icon: Iconsax.logout,
+                label: "Log out",
+                onPressed: () {
+                  signOut();
+                  Get.offAll(() => LoginScreen());
+                },
               ),
             ],
           ),
