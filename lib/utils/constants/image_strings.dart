@@ -18,4 +18,7 @@ class TImages {
 
   static const String verifyIllustration =
       "assets/images/animations/sent-mail.gif";
+
+  static const String car = "assets/images/car.jpg";
+  static const String toyota = "assets/images/vehicles/toyota.png";
 }

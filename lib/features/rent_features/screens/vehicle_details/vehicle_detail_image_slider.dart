@@ -28,9 +28,7 @@ class TVehicleImageSlider extends StatelessWidget {
                 height: 400,
                 child: Padding(
                   padding: const EdgeInsets.all(TSizes.productImageRadius * 2),
-                  child: Center(
-                      child:
-                          Image(image: AssetImage(TImages.OnBoardingImage3))),
+                  child: Center(child: Image(image: AssetImage(TImages.car))),
                 )),
             //image slider
             Positioned(
@@ -52,7 +50,7 @@ class TVehicleImageSlider extends StatelessWidget {
                     border: Border.all(color: TColors.primary),
                     padding: const EdgeInsets.all(TSizes.sm),
                     backgroundColor: dark ? TColors.dark : TColors.white,
-                    imageUrl: TImages.OnBoardingImage1,
+                    imageUrl: TImages.car,
                   ),
                 ),
               ),

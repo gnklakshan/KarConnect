@@ -46,7 +46,7 @@ class TVehicleMetaData extends StatelessWidget {
 
             //price
             Text(
-              "LKR 250",
+              "LKR 2500",
               style: Theme.of(context)
                   .textTheme
                   .titleSmall!
@@ -55,7 +55,7 @@ class TVehicleMetaData extends StatelessWidget {
             const SizedBox(
               width: TSizes.spaceBtwItems,
             ),
-            const TVehiclePriceText(price: '175', isLarge: true)
+            const TVehiclePriceText(price: '1750', isLarge: true)
           ],
         ),
 
@@ -64,20 +64,9 @@ class TVehicleMetaData extends StatelessWidget {
         ),
 
         //stock status
-        Row(
-          children: [
-            const TVehicleTitleText(title: "Status "),
-            const SizedBox(
-              width: TSizes.spaceBtwItems,
-            ),
-            Text(
-              "Available",
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ],
-        ),
+
         const SizedBox(
-          width: TSizes.spaceBtwItems / 1.5,
+          height: TSizes.spaceBtwItems,
         ),
 
         //brand
