@@ -86,9 +86,10 @@ class _TLoginFormState extends State<TLoginForm> {
                     String password = passwordController.text.trim();
                     UserCredential? result =
                         await signInWithEmailAndPassword(email, password);
+                    print("username $email $password");
                     if (result != null) {
                       // User created successfully
-                      // Get.to(() => const VehicleDetails());
+                      print("Successfully login");
                       Get.to(() => dashboard());
                     } else {
                       // Error occurred

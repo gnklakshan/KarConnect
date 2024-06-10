@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:karconnect/dummy_temp.dart';
 import 'package:karconnect/features/Search_filter/search_filter.dart';
 import 'package:karconnect/features/dashboard/MainPages/bookingpage.dart';
 import 'package:karconnect/features/dashboard/MainPages/homepage.dart';
+import 'package:karconnect/features/dashboard/MainPages/profilepage.dart';
 import 'package:karconnect/utils/theme/theme.dart'; // Import your custom theme
 
 class BottomNavigationBarCustom extends StatefulWidget {
@@ -21,7 +21,7 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
     Home(),
     booking(),
     SearchVehicle(),
-    dummy(),
+    profile(),
   ];
 
   void _onItemTapped(int index) {
