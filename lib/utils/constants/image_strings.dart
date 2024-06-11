@@ -6,8 +6,9 @@ class TImages {
       "assets/logos/vecteezy_green-energy-logo-element-electric-renewable-power-leaf_35527901.png";
 
   // Social Logos
-  static const String google = "assets/logos/google-icon.png";
-  static const String facebook = "assets/logos/facebook-icon.png";
+  static const String google = "assets/logos/7123025_logo_google_g_icon.png";
+  static const String facebook =
+      "assets/logos/5296499_fb_facebook_facebook logo_icon.png";
 
   static const String OnBoardingImage1 =
       "assets/images/on_boarding/684c748398f451ce16628882f24dafb5.gif";

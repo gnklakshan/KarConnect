@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
               ),
 
               //footer
-              // const TSocialButtons(),
+              const TSocialButtons(),
             ],
           ),
         ),
