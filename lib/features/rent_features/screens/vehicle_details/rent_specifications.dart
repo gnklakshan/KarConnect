@@ -80,7 +80,7 @@ class _RentSpecificationsState extends State<RentSpecifications> {
                         contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
                         hintText: "Start Date",
                         hintStyle: TextStyle(
-                            color: dark ? TColors.white : TColors.primary),
+                            fontSize: TSizes.fontSizeSm, color: TColors.grey),
                         errorStyle: TextStyle(color: Colors.redAccent),
                         errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -134,7 +134,7 @@ class _RentSpecificationsState extends State<RentSpecifications> {
                         contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
                         hintText: "Start Time",
                         hintStyle: TextStyle(
-                            color: dark ? TColors.white : TColors.primary),
+                            fontSize: TSizes.fontSizeSm, color: TColors.grey),
                         errorStyle: TextStyle(color: Colors.redAccent),
                         errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -193,7 +193,7 @@ class _RentSpecificationsState extends State<RentSpecifications> {
                         contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
                         hintText: "End Date",
                         hintStyle: TextStyle(
-                            color: dark ? TColors.white : TColors.primary),
+                            fontSize: TSizes.fontSizeSm, color: TColors.grey),
                         errorStyle: TextStyle(color: Colors.redAccent),
                         errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -247,7 +247,7 @@ class _RentSpecificationsState extends State<RentSpecifications> {
                         contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
                         hintText: "End Time",
                         hintStyle: TextStyle(
-                            color: dark ? TColors.white : TColors.primary),
+                            fontSize: TSizes.fontSizeSm, color: TColors.grey),
                         errorStyle: TextStyle(color: Colors.redAccent),
                         errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -295,7 +295,7 @@ class _RentSpecificationsState extends State<RentSpecifications> {
                         contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
                         hintText: "Pickup Location",
                         hintStyle: TextStyle(
-                            color: dark ? TColors.white : TColors.primary),
+                            fontSize: TSizes.fontSizeSm, color: TColors.grey),
                         errorStyle: TextStyle(color: Colors.redAccent),
                         errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -349,7 +349,7 @@ class _RentSpecificationsState extends State<RentSpecifications> {
                         contentPadding: EdgeInsets.all(20),
                         hintText: "Return Location",
                         hintStyle: TextStyle(
-                            color: dark ? TColors.white : TColors.primary),
+                            fontSize: TSizes.fontSizeSm, color: TColors.grey),
                         errorStyle: TextStyle(color: Colors.redAccent),
                         errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
