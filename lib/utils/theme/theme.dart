@@ -25,6 +25,7 @@ class TAppTheme {
       bottomSheetTheme: TBottomSheetTheme.lightBottomSheetThemeData,
       outlinedButtonTheme: TOutlinedButtonTheme.lightOutlinedButtonTheme,
       inputDecorationTheme: TTextFormFieldTheme.lightInputDecorationTheme);
+
   static ThemeData darkTheme = ThemeData(
       useMaterial3: true,
       fontFamily: 'Poppins',

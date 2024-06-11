@@ -23,7 +23,7 @@ class vehicle_card extends StatelessWidget {
     final theme = Theme.of(context); // Get the current theme
 
     return Container(
-      width: 150,
+      width: 180,
       child: GestureDetector(
         onTap: () {
           print(docID);
@@ -64,7 +64,7 @@ class vehicle_card extends StatelessWidget {
                   // ),
                 ),
               ),
-              vehicle_cardDetails(context, vehicleName, price),
+              vehicle_cardDetails(vehicleName: vehicleName, price: price),
             ],
           ),
         ),
@@ -73,71 +73,95 @@ class vehicle_card extends StatelessWidget {
   }
 }
 
-Padding vehicle_cardDetails(
-    BuildContext context, String vehicleName, int price) {
-  final theme = Theme.of(context);
+class vehicle_cardDetails extends StatefulWidget {
+  final String vehicleName;
+  final int price;
 
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Column(
-      children: [
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  vehicleName,
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.w600,
-                    color: theme.textTheme.bodyMedium
-                        ?.color, // Use the text color from the theme
+  vehicle_cardDetails({required this.vehicleName, required this.price});
+
+  @override
+  _vehicle_cardDetailsState createState() => _vehicle_cardDetailsState();
+}
+
+class _vehicle_cardDetailsState extends State<vehicle_cardDetails> {
+  bool _isFavorited = false;
+
+  void _toggleFavorite() {
+    setState(() {
+      _isFavorited = !_isFavorited;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    widget.vehicleName,
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w600,
+                      color: theme.textTheme.bodyMedium?.color,
+                    ),
                   ),
                 ),
+                IconButton(
+                  onPressed: _toggleFavorite,
+                  icon: Icon(
+                    _isFavorited ? Icons.favorite_rounded : Iconsax.heart,
+                    color: _isFavorited ? Colors.red : Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Row(
+            children: [
+              Icon(
+                Icons.star_border,
+                color: Colors.deepOrange,
+                size: 18,
               ),
-              Icon(Iconsax.heart)
+              Icon(
+                Icons.star_border,
+                color: Colors.deepOrange,
+                size: 18,
+              ),
+              Icon(
+                Icons.star_border,
+                color: Colors.deepOrange,
+                size: 18,
+              ),
+              Icon(
+                Icons.star_border,
+                size: 18,
+              ),
+              Icon(
+                Icons.star_border,
+                size: 18,
+              ),
             ],
           ),
-        ),
-        const Row(
-          children: [
-            Icon(
-              Icons.star_border,
-              color: Colors.deepOrange,
-              size: 18,
-            ),
-            Icon(
-              Icons.star_border,
-              color: Colors.deepOrange,
-              size: 18,
-            ),
-            Icon(
-              Icons.star_border,
-              color: Colors.deepOrange,
-              size: 18,
-            ),
-            Icon(
-              Icons.star_border,
-              size: 18,
-            ),
-            Icon(
-              Icons.star_border,
-              size: 18,
-            )
-          ],
-        ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Text(
-            " Rs $price/Day",
-            style: TextStyle(
-              color: theme.textTheme.bodySmall
-                  ?.color, // Use the text color from the theme
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Text(
+              " Rs ${widget.price}/Day",
+              style: TextStyle(
+                color: theme.textTheme.bodySmall?.color,
+              ),
             ),
           ),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  }
 }

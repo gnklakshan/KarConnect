@@ -85,7 +85,7 @@ class _vehicle_card_listState extends State<vehicle_card_list> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 215,
+      height: 245,
       child: FutureBuilder<List<Map<String, dynamic>>>(
         future:
             CollectionDataService().get_collection_data(widget.collectionName),

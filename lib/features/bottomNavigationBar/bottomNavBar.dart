@@ -70,6 +70,10 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
           unselectedItemColor: isDarkMode
               ? darkTheme.unselectedWidgetColor
               : lightTheme.unselectedWidgetColor,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: isDarkMode
+              ? Color.fromARGB(132, 43, 42, 42)
+              : lightTheme.scaffoldBackgroundColor.withOpacity(0.9),
           showUnselectedLabels: true,
           onTap: _onItemTapped,
         ),
