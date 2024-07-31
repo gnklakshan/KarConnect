@@ -84,6 +84,7 @@ class _TLoginFormState extends State<TLoginForm> {
                   onPressed: () async {
                     String email = emailController.text.trim();
                     String password = passwordController.text.trim();
+                    print("username $email $password");
                     UserCredential? result =
                         await signInWithEmailAndPassword(email, password);
                     print("username $email $password");

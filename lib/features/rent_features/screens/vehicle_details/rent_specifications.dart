@@ -453,6 +453,8 @@ class _RentSpecificationsState extends State<RentSpecifications> {
                         borderSide: BorderSide(color: Colors.red, width: 2)),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          BorderSide(color: Colors.grey), // Color when enabled
                     ),
                     focusedBorder: OutlineInputBorder(
                         borderSide:
@@ -508,6 +510,8 @@ class _RentSpecificationsState extends State<RentSpecifications> {
                         borderSide: BorderSide(color: Colors.red, width: 2)),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          BorderSide(color: Colors.grey), // Color when enabled
                     ),
                     focusedBorder: OutlineInputBorder(
                         borderSide:
@@ -567,6 +571,8 @@ class _RentSpecificationsState extends State<RentSpecifications> {
                         borderSide: BorderSide(color: Colors.red, width: 2)),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          BorderSide(color: Colors.grey), // Color when enabled
                     ),
                     focusedBorder: OutlineInputBorder(
                         borderSide:
@@ -623,6 +629,8 @@ class _RentSpecificationsState extends State<RentSpecifications> {
                         borderSide: BorderSide(color: Colors.red, width: 2)),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          BorderSide(color: Colors.grey), // Color when enabled
                     ),
                     focusedBorder: OutlineInputBorder(
                         borderSide:
