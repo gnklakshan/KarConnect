@@ -48,7 +48,8 @@ class _VehicleCardListState extends State<fetch_vehicle_Data> {
             String description = VehicleData["description"];
             print(name);
 
-            return VehicleDetails(name, price, owner, image, description);
+            return VehicleDetails(
+                name, price, owner, image, description, widget.docId);
           }
         },
       ),
