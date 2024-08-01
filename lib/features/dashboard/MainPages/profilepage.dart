@@ -11,6 +11,8 @@ import 'package:karconnect/utils/constants/sizes.dart';
 import 'package:karconnect/utils/helpers/helper_functions.dart';
 import 'package:karconnect/utils/theme/custom_themes/outlined_button_theme.dart';
 
+import '../widgets_class/rateUs.dart';
+
 class profile extends StatefulWidget {
   const profile({super.key});
 
@@ -148,7 +150,7 @@ class _profileState extends State<profile> {
                 icon: Iconsax.like_1,
                 label: "Rate our App",
                 onPressed: () =>
-                    Get.to(() => dummy()), // Add path to rate our app screen
+                    Get.to(() => RateUs()), // Add path to rate our app screen
               ),
 
               /// Signed out

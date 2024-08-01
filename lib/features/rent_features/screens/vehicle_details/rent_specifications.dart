@@ -745,7 +745,17 @@ class AlertBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
-      title: Text("Confirm Booking"),
+      title: Column(
+        children: [
+          Icon(
+            CupertinoIcons.check_mark_circled,
+            color: CupertinoColors.activeGreen,
+            size: 120,
+          ),
+          SizedBox(width: 12),
+          Text("Confirm Booking"),
+        ],
+      ),
       insetAnimationDuration: Durations.short3,
       actions: [
         CupertinoDialogAction(
@@ -769,13 +779,7 @@ class AlertBox extends StatelessWidget {
       ],
       content: const Column(
         children: [
-          Text("Do you need to book vehicle ? "),
-          Icon(
-            CupertinoIcons.check_mark_circled,
-            color: CupertinoColors.activeGreen,
-            size: 120,
-          ),
-          SizedBox(width: 12),
+          Text("Your Booking will be confirmed"),
         ],
       ),
     );
