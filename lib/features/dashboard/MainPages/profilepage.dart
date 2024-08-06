@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,14 +9,16 @@ import 'package:karconnect/backend/firebase/firebase_auth.dart';
 import 'package:karconnect/dummy_temp.dart';
 import 'package:karconnect/features/authentication/screens/login/login.dart';
 import 'package:karconnect/features/dashboard/MainPages/bookingpage.dart';
+import 'package:karconnect/features/dashboard/widgets_class/aboutus.dart';
 import 'package:karconnect/utils/constants/sizes.dart';
 import 'package:karconnect/utils/helpers/helper_functions.dart';
 import 'package:karconnect/utils/theme/custom_themes/outlined_button_theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets_class/rateUs.dart';
 
 class profile extends StatefulWidget {
-  const profile({super.key});
+  const profile({Key? key}) : super(key: key);
 
   @override
   State<profile> createState() => _profileState();
@@ -27,11 +31,14 @@ class _profileState extends State<profile> {
   @override
   void initState() {
     super.initState();
-    CollectionDataService().get_user_data().then((value) {
-      setState(() {
-        username = value?['username'];
-        link = value?['link'];
-      });
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    final value = await CollectionDataService().get_user_data();
+    setState(() {
+      username = value?['username'] ?? "";
+      link = value?['link'];
     });
   }
 
@@ -41,21 +48,20 @@ class _profileState extends State<profile> {
     final OutlinedButtonThemeData outlinedButtonTheme = dark
         ? TOutlinedButtonTheme.darkOutlinedButtonTheme
         : TOutlinedButtonTheme.lightOutlinedButtonTheme;
+
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text("Profile"),
+        // automaticallyImplyLeading: false,
+        title: const Text("profile"),
         centerTitle: true,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Iconsax.edit))
-        ], //profile picture change screen
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Iconsax.edit))],
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             children: [
-              /// Image
+              // profile Image
               Center(
                 child: ClipOval(
                   child: Image.asset(
@@ -63,107 +69,20 @@ class _profileState extends State<profile> {
                     width: 150,
                     height: 150,
                     fit: BoxFit.cover,
-                  ), // Add the retrieval URL from the DB
+                  ),
                 ),
               ),
               const SizedBox(height: TSizes.defaultSpace),
               Text(
-                username!, // Retrieve the username from the DB
+                username,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
 
-              /// Profile Option
               const SizedBox(height: TSizes.defaultSpace * 2),
-              buildProfileOption(
-                context: context,
-                icon: Iconsax.people,
-                label: "Profile",
-                onPressed: () =>
-                    Get.to(() => dummy()), // Add path to profile screen
-              ),
 
-              /// Booking option
-              const SizedBox(height: TSizes.defaultSpace * 0.1),
-              buildProfileOption(
-                  context: context,
-                  icon: Iconsax.calendar,
-                  label: "Bookings",
-                  onPressed: () => Get.to(
-                      () => const booking()) // Add path to booking screen
-                  ),
-
-              /// Wishlist
-              const SizedBox(height: TSizes.defaultSpace * 0.1),
-              buildProfileOption(
-                context: context,
-                icon: Iconsax.heart,
-                label: "Wishlist",
-                onPressed: () =>
-                    Get.to(() => dummy()), // Add path to wishlist screen
-              ),
-
-              /// FAQs
-              const SizedBox(height: TSizes.defaultSpace * 0.1),
-              buildProfileOption(
-                context: context,
-                icon: Iconsax.message_question,
-                label: "FAQs",
-                onPressed: () =>
-                    Get.to(() => dummy()), // Add path to FAQs screen
-              ),
-
-              /// Policy
-              const SizedBox(height: TSizes.defaultSpace * 0.1),
-              buildProfileOption(
-                context: context,
-                icon: Iconsax.document_text,
-                label: "Policy",
-                onPressed: () =>
-                    Get.to(() => dummy()), // Add path to policy screen
-              ),
-
-              /// Settings
-              const SizedBox(height: TSizes.defaultSpace * 0.1),
-              buildProfileOption(
-                context: context,
-                icon: Iconsax.setting_2,
-                label: "Settings",
-                onPressed: () =>
-                    Get.to(() => dummy()), // Add path to settings screen
-              ),
-
-              /// Help and Support
-              const SizedBox(height: TSizes.defaultSpace * 0.1),
-              buildProfileOption(
-                context: context,
-                icon: Iconsax.support,
-                label: "Help and Support",
-                onPressed: () => Get.to(
-                    () => dummy()), // Add path to help and support screen
-              ),
-
-              /// Rate Our App
-              const SizedBox(height: TSizes.defaultSpace * 0.1),
-              buildProfileOption(
-                context: context,
-                icon: Iconsax.like_1,
-                label: "Rate our App",
-                onPressed: () =>
-                    Get.to(() => RateUs()), // Add path to rate our app screen
-              ),
-
-              /// Signed out
-              const SizedBox(height: TSizes.defaultSpace * 0.1),
-              buildProfileOption(
-                context: context,
-                icon: Iconsax.logout,
-                label: "Log out",
-                onPressed: () {
-                  signOut();
-                  Get.offAll(() => LoginScreen());
-                },
-              ),
+              // profile Options
+              _buildprofileOptions(context),
             ],
           ),
         ),
@@ -171,7 +90,88 @@ class _profileState extends State<profile> {
     );
   }
 
-  Widget buildProfileOption({
+  Widget _buildprofileOptions(BuildContext context) {
+    return Column(
+      children: [
+        _buildprofileOption(
+          context: context,
+          icon: Iconsax.people,
+          label: "profile",
+          onPressed: () => Get.to(() => dummy()),
+        ),
+        _buildSpacedprofileOption(
+          context: context,
+          icon: Iconsax.calendar,
+          label: "Bookings",
+          onPressed: () => Get.to(() => const booking()),
+        ),
+        _buildSpacedprofileOption(
+          context: context,
+          icon: Iconsax.heart,
+          label: "Wishlist",
+          onPressed: () => Get.to(() => dummy()),
+        ),
+        _buildSpacedprofileOption(
+          context: context,
+          icon: Iconsax.message_question,
+          label: "FAQs",
+          onPressed: () => _launchURL('https://kangaroocabs.com/faq'),
+        ),
+        _buildSpacedprofileOption(
+          context: context,
+          icon: Iconsax.document_text,
+          label: "Policy",
+          onPressed: () =>
+              _launchURL('https://kangaroocabs.com/terms-conditions'),
+        ),
+        _buildSpacedprofileOption(
+          context: context,
+          icon: Iconsax.setting_2,
+          label: "Settings",
+          onPressed: () => Get.to(() => dummy()),
+        ),
+        _buildSpacedprofileOption(
+          context: context,
+          icon: Iconsax.teacher,
+          label: "About Us",
+          onPressed: () => Get.to(() => AboutUsPage()),
+        ),
+        _buildSpacedprofileOption(
+          context: context,
+          icon: Iconsax.like_1,
+          label: "Rate our App",
+          onPressed: () => Get.to(() => RateUs()),
+        ),
+        _buildSpacedprofileOption(
+          context: context,
+          icon: Iconsax.logout,
+          label: "Log out",
+          onPressed: () => showSignOutDialog(context),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSpacedprofileOption({
+    required BuildContext context,
+    required IconData icon,
+    required String label,
+    required VoidCallback onPressed,
+  }) {
+    return Column(
+      children: [
+        const SizedBox(height: TSizes.defaultSpace * 0.1),
+        _buildprofileOption(
+          context: context,
+          icon: icon,
+          label: label,
+          onPressed: onPressed,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildprofileOption({
     required BuildContext context,
     required IconData icon,
     required String label,
@@ -201,5 +201,76 @@ class _profileState extends State<profile> {
         ),
       ),
     );
+  }
+
+  void showSignOutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: const Color.fromARGB(0, 95, 95, 95),
+          child: Stack(
+            children: [
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                child: Center(child: _buildSignOutDialog(context)),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  CupertinoAlertDialog _buildSignOutDialog(BuildContext context) {
+    return CupertinoAlertDialog(
+      title: const Column(
+        children: [
+          Icon(
+            CupertinoIcons.exclamationmark_circle,
+            color: Color.fromARGB(255, 211, 55, 37),
+            size: 120,
+          ),
+          SizedBox(width: 12),
+          Text("Sign Out"),
+        ],
+      ),
+      insetAnimationDuration: Durations.short3,
+      actions: [
+        CupertinoDialogAction(
+          onPressed: () => Navigator.pop(context),
+          child: const Text("Cancel"),
+        ),
+        CupertinoDialogAction(
+          onPressed: () async {
+            Navigator.pop(context);
+            try {
+              signOut();
+              Get.offAll(() => LoginScreen());
+            } catch (e) {
+              print("Error signing out: $e");
+              // Handle the error appropriately
+            }
+          },
+          child: const Text(
+            "Confirm",
+          ),
+        ),
+      ],
+      content: const Column(
+        children: [
+          Text("Do you need to Sign out"),
+        ],
+      ),
+    );
+  }
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      // throw 'Could not launch $url';
+    }
   }
 }

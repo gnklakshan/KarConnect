@@ -42,10 +42,7 @@ class _RateUsState extends State<RateUs> {
             ),
             submitButtonText: 'Submit',
             commentHint: 'Add your valuable comment here',
-            onCancelled: (() => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => dashboard()),
-                )),
+            onCancelled: (() => Navigator.pop(context)),
             onSubmitted: (response) {
               print('rating: ${response.rating}, comment: ${response.comment}');
 

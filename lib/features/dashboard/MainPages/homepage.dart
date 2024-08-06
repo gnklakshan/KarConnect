@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:karconnect/backend/data_retrieve/brandCard_dynamic_list.dart';
 import 'package:karconnect/backend/data_retrieve/vehicle_card_dynamicList.dart';
 import 'package:karconnect/dummy_temp.dart';
+import 'package:karconnect/features/notification/notificatin.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -74,50 +75,6 @@ class Home extends StatelessWidget {
   }
 }
 
-// AppBar LocationBar() {
-//   return AppBar(
-//     automaticallyImplyLeading: false,
-//     title: Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       children: [
-//         const Row(
-//           children: [
-//             Icon(
-//               Icons.location_on_outlined,
-//               size: 36,
-//             ),
-//             SizedBox(
-//               width: 6,
-//             ),
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   "Your Location",
-//                   style: TextStyle(
-//                       color: Color.fromARGB(122, 0, 0, 0),
-//                       fontWeight: FontWeight.normal,
-//                       fontSize: 15),
-//                 ),
-//                 Text(
-//                   "Colombo",
-//                   style: TextStyle(
-//                       color: Color.fromARGB(146, 0, 0, 0), fontSize: 20),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//         IconButton(
-//             onPressed: () {
-//                Get.to(() => const dummy());
-//             },
-//             icon: Icon(Icons.notifications_none_outlined, size: 30))
-//       ],
-//     ),
-//   );
-// }
-
 AppBar LocationBar(BuildContext context) {
   final theme = Theme.of(context);
 
@@ -160,7 +117,8 @@ AppBar LocationBar(BuildContext context) {
         ),
         IconButton(
           onPressed: () {
-            Get.to(() => const dummy());
+            Get.to(() => const NotificationScreen());
+            // NotificationScreen();
           },
           icon: Icon(
             Icons.notifications_none_outlined,
