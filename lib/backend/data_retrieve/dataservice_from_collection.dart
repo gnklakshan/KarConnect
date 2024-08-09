@@ -14,6 +14,15 @@ class CollectionDataService {
     return data;
   }
 
+  Stream<List<Map<String, dynamic>>> getCollectionDataStream(
+      String collectionName) {
+    return FirebaseFirestore.instance
+        .collection(collectionName)
+        .where('Availability', isEqualTo: 1)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
+  }
+
 //get data of specific doc in the given collection
   Future<Map<String, dynamic>?> getCollectionDocData(
       String collectionName, String docId) async {

@@ -94,30 +94,37 @@ class TRentOwnerDetailsTab extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              const SizedBox(
-                width: TSizes.spaceBtwItems / 2,
-              ),
-              //rating
-              const Icon(
-                Iconsax.people,
-                color: TColors.primary,
-                size: 24,
-              ),
-              const SizedBox(
-                width: TSizes.spaceBtwItems / 2,
-              ),
-              Text.rich(TextSpan(
-                children: [
-                  TextSpan(
-                      text: owner,
-                      style: Theme.of(context).textTheme.bodyLarge),
-                  // const TextSpan(text: "  (258)"),
-                ],
-              )),
-              //share
-            ],
+          SafeArea(
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: TSizes.spaceBtwItems / 2,
+                ),
+                //rating
+                const Icon(
+                  Iconsax.people,
+                  color: TColors.primary,
+                  size: 24,
+                ),
+                const SizedBox(
+                  width: TSizes.spaceBtwItems / 2,
+                ),
+                SafeArea(
+                  child: Text.rich(TextSpan(
+                    children: [
+                      TextSpan(
+                        text: owner.length > 15
+                            ? owner.substring(0, 15) + '...'
+                            : owner,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      // const TextSpan(text: "  (258)"),
+                    ],
+                  )),
+                )
+                //share
+              ],
+            ),
           ),
           const SizedBox(
             width: TSizes.spaceBtwItems * 5,
