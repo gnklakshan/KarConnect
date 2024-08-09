@@ -90,11 +90,11 @@ class CollectionDataService {
         return {
           'username': 'username',
           'link': 'null',
-        }; // Handle the case where the document does not exist
+        };
       }
     } catch (e) {
       print("Error getting user data: $e");
-      return null; // Handle the error accordingly
+      return null;
     }
   }
 }

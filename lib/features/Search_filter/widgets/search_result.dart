@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:karconnect/backend/data_retrieve/dataservice_from_collection.dart';
 import 'package:karconnect/features/Search_filter/widgets/vehiclecard_dup.dart';
 
@@ -8,11 +7,13 @@ class Search_result_list extends StatefulWidget {
   final String collectionName;
   final String VehicleType;
   final String VehicleBrand;
-  const Search_result_list(
-      {super.key,
-      required this.collectionName,
-      required this.VehicleType,
-      required this.VehicleBrand});
+
+  const Search_result_list({
+    super.key,
+    required this.collectionName,
+    required this.VehicleType,
+    required this.VehicleBrand,
+  });
 
   @override
   State<Search_result_list> createState() => _Search_result_listState();
@@ -26,6 +27,7 @@ class _Search_result_listState extends State<Search_result_list> {
       var data = await FirebaseFirestore.instance
           .collection('vehicle_db')
           .where('vehicle_no', isEqualTo: vehicleNumber)
+          .where('Availability', isEqualTo: 1)
           .get();
       if (data.docs.isNotEmpty) {
         vehicleDocIds[vehicleNumber] = data.docs[0].id;
@@ -65,28 +67,36 @@ class _Search_result_listState extends State<Search_result_list> {
                       child: Text('Error: ${vehicleIdsSnapshot.error}'));
                 } else if (vehicleIdsSnapshot.data == null ||
                     vehicleIdsSnapshot.data!.isEmpty) {
-                  return const Center(child: Text('No document IDs available'));
+                  return const Center(child: Text('No Vehicles available'));
                 } else {
                   Map<String, String> vehicleDocIds = vehicleIdsSnapshot.data!;
+
+                  // Filter the data_list to exclude items without a valid vehicleDocId
+                  List<Map<String, dynamic>> filteredDataList =
+                      data_list.where((data) {
+                    String vehicleNumber = data['vehicle_no'];
+                    return vehicleDocIds.containsKey(vehicleNumber);
+                  }).toList();
+
                   return GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 4.0,
                       mainAxisSpacing: 4.0,
                     ),
-                    itemCount: data_list.length,
+                    itemCount: filteredDataList.length,
                     itemBuilder: (context, index) {
-                      String name = data_list[index]["name"];
-                      int price = data_list[index]["price"];
-                      String image = data_list[index]["main_image"];
-                      String vehicleNumber = data_list[index]["vehicle_no"];
-                      String? vehicleDocId = vehicleDocIds[vehicleNumber];
+                      String name = filteredDataList[index]["name"];
+                      int price = filteredDataList[index]["price"];
+                      String image = filteredDataList[index]["main_image"];
+                      String vehicleNumber =
+                          filteredDataList[index]["vehicle_no"];
+                      String vehicleDocId = vehicleDocIds[vehicleNumber]!;
+
                       return Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: vehicleDocId != null
-                            ? vehicle_card_search(
-                                name, price, image, vehicleDocId)
-                            : const SizedBox(),
+                        child: vehicle_card_search(
+                            name, price, image, vehicleDocId),
                       );
                     },
                   );

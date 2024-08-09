@@ -81,6 +81,16 @@ class _RentSpecificationsState extends State<RentSpecifications> {
     }
   }
 
+  bool _isEndDateGreaterThanStartDate() {
+    try {
+      DateTime startDate = _dateFormat.parse(_startDateController.text);
+      DateTime endDate = _dateFormat.parse(_endDateController.text);
+      return endDate.isAfter(startDate);
+    } catch (e) {
+      return false; // Handle parsing error if needed
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
@@ -282,10 +292,9 @@ class _RentSpecificationsState extends State<RentSpecifications> {
               const SizedBox(height: 10),
               Align(
                 alignment: Alignment.bottomLeft,
-                child: Text(
-                  "Select End Time",
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
+                child: Text("Select End Time",
+                    style: Theme.of(context).textTheme.titleMedium,
+                    textAlign: TextAlign.left),
               ),
               // Select End Time
               TextFormField(
@@ -337,71 +346,71 @@ class _RentSpecificationsState extends State<RentSpecifications> {
                             BorderSide(color: TColors.primary, width: 2),
                         borderRadius: BorderRadius.circular(10))),
               ),
-              const SizedBox(height: 200),
-              // SizedBox(
-              //     width: double.infinity,
-              //     child: ElevatedButton(
-              //         onPressed: () {
-              //           showCupertinoDialog(
-              //             context: context,
-              //             builder: (BuildContext context) => const AlertBox(),
-              //           );
-              //         },
-              //         child: Text("Rent Vehicle"))),
-
               SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        final start_date = _startDateController.text;
-                        final end_date = _endDateController.text;
-                        final start_time = _startTimeController.text;
-                        final end_time = _endTimeController.text;
+                height: 20,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    final start_date = _startDateController.text;
+                    final end_date = _endDateController.text;
+                    final start_time = _startTimeController.text;
+                    final end_time = _endTimeController.text;
 
-                        if (start_time.isEmpty ||
-                            end_time.isEmpty ||
-                            start_date.isEmpty ||
-                            end_date.isEmpty) {
-                          Get.snackbar(
-                            'Error',
-                            'Fill Required Data Fields Correctly',
-                            backgroundColor: Color.fromARGB(92, 240, 240, 240),
-                            icon: const Icon(
-                              Icons.warning,
-                              color: Color.fromARGB(225, 251, 3, 3),
+                    if (start_time.isEmpty ||
+                        end_time.isEmpty ||
+                        start_date.isEmpty ||
+                        end_date.isEmpty) {
+                      Get.snackbar(
+                        'Error',
+                        'Fill Required Data Fields Correctly',
+                        backgroundColor: Color.fromARGB(92, 240, 240, 240),
+                        icon: const Icon(
+                          Icons.warning,
+                          color: Color.fromARGB(225, 251, 3, 3),
+                        ),
+                      );
+                    } else if (!_isEndDateGreaterThanStartDate()) {
+                      Get.snackbar(
+                        'Error',
+                        'End Date must be greater than Start Date',
+                        backgroundColor: Color.fromARGB(92, 240, 240, 240),
+                        icon: const Icon(
+                          Icons.warning,
+                          color: Color.fromARGB(225, 251, 3, 3),
+                        ),
+                      );
+                    } else {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return Dialog(
+                            backgroundColor: Color.fromARGB(0, 218, 214, 214),
+                            child: Stack(
+                              children: [
+                                BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                                  child: AlertBox(
+                                    VehicleID: widget.VehicleID,
+                                    startDate: start_date,
+                                    startTime: start_time,
+                                    endDate: end_date,
+                                    endTime: end_time,
+                                  ),
+                                ),
+                              ],
                             ),
                           );
-                        } else {
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext context) {
-                              return Dialog(
-                                backgroundColor:
-                                    Color.fromARGB(0, 132, 130, 130),
-                                child: Stack(
-                                  children: [
-                                    BackdropFilter(
-                                      filter: ImageFilter.blur(
-                                          sigmaX: 1, sigmaY: 1),
-                                      child: Center(
-                                        child: AlertBox(
-                                          VehicleID: widget.VehicleID,
-                                          startDate: _startDateController.text,
-                                          startTime: _startTimeController.text,
-                                          endDate: _endDateController.text,
-                                          endTime: _endTimeController.text,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        }
-                      },
-                      child: Text("Rent Vehicle"))),
+                        },
+                      );
+                    }
+                  },
+                  child: Text("Rent Vehicle"),
+                ),
+              ),
             ],
           ),
         ),
@@ -411,7 +420,7 @@ class _RentSpecificationsState extends State<RentSpecifications> {
 
   bool isValidDate(String value, String format) {
     try {
-      _dateFormat.parseStrict(value);
+      DateFormat(format).parseStrict(value);
       return true;
     } catch (e) {
       return false;
@@ -477,9 +486,11 @@ class AlertBox extends StatelessWidget {
             },
             child: Text("Confirm")),
       ],
-      content: const Column(
+      content: Column(
         children: [
-          Text("Your Booking will be confirmed"),
+          Text(
+            "Are you sure you want to book the vehicle for $startDate $startTime to $endDate $endTime?",
+          ),
         ],
       ),
     );

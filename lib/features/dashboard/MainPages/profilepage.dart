@@ -51,7 +51,7 @@ class _profileState extends State<profile> {
 
     return Scaffold(
       appBar: AppBar(
-        // automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         title: const Text("profile"),
         centerTitle: true,
         actions: [IconButton(onPressed: () {}, icon: const Icon(Iconsax.edit))],

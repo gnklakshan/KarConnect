@@ -14,7 +14,7 @@ class _SearchVehicleState extends State<SearchVehicle> {
   String? selectedModel;
 
   final Map<String, List<String>> vehicleModels = {
-    'Car': ['BMW', 'Mercedes', 'Audi', 'Nissan', 'Jaguar'],
+    'Car': ['BMW', 'Mercedes', 'Audi', 'Nissan', 'Jaguar', 'Toyota'],
     'Van': ['Toyota', 'Nissan'],
     'Truck': ['Toyota', 'Nissan', 'Dimmo', 'TATA'],
   };
