@@ -49,36 +49,40 @@ class _AboutUsPageState extends State<AboutUsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.asset('assets/logos/teamlogo.png'),
-              const Text(
-                "Introduction",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              // const SizedBox(height: 16),
               // const Text(
+              //   "Introduction",
+              //   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              // ),
+              // // const SizedBox(height: 16),
+              const Text(
+                "We are Nitro Runners, a dedicated team of three developers currently in our third year of undergraduate studies. Our diverse skills and collaborative approach enable us to tackle complex challenges and deliver high-quality products. Each member of our team brings unique strengths and perspectives, allowing us to innovate and create effective solutions that meet the needs of our clients and users. Our commitment to excellence and continuous learning drives us to stay at the forefront of technology and industry trends, ensuring that we deliver top-notch results in every project we undertake.",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.left,
+              ),
+
+              // const ExpandableText(
               //   "We are Nitro Runners, a dedicated team of three developers currently in our third year of undergraduate studies. Our diverse skills and collaborative approach enable us to tackle complex challenges and deliver high-quality products. Each member of our team brings unique strengths and perspectives, allowing us to innovate and create effective solutions that meet the needs of our clients and users. Our commitment to excellence and continuous learning drives us to stay at the forefront of technology and industry trends, ensuring that we deliver top-notch results in every project we undertake.",
+              //   expandText: 'Read More',
+              //   collapseText: 'Read Less',
+              //   maxLines: 4,
+              //   linkColor: Colors.blue,
               //   style: TextStyle(fontSize: 16),
               // ),
-              const ExpandableText(
-                "We are Nitro Runners, a dedicated team of three developers currently in our third year of undergraduate studies. Our diverse skills and collaborative approach enable us to tackle complex challenges and deliver high-quality products. Each member of our team brings unique strengths and perspectives, allowing us to innovate and create effective solutions that meet the needs of our clients and users. Our commitment to excellence and continuous learning drives us to stay at the forefront of technology and industry trends, ensuring that we deliver top-notch results in every project we undertake.",
-                expandText: 'Read More',
-                collapseText: 'Read Less',
-                maxLines: 4,
-                linkColor: Colors.blue,
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                "Mission",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const ExpandableText(
-                "Our mission is to create innovative and user-friendly applications that solve real-world problems and enhance user experiences. We strive to stay at the forefront of technology and industry trends, ensuring that our solutions are not only effective but also future-proof.",
-                expandText: 'Read More',
-                collapseText: 'Read Less',
-                maxLines: 4,
-                linkColor: Colors.blue,
-                style: TextStyle(fontSize: 16),
-              ),
+              // const SizedBox(height: 16),
+              // const Text(
+              //   "Mission",
+              //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              // ),
+              // const ExpandableText(
+              //   "Our mission is to create innovative and user-friendly applications that solve real-world problems and enhance user experiences. We strive to stay at the forefront of technology and industry trends, ensuring that our solutions are not only effective but also future-proof.",
+              //   expandText: 'Read More',
+              //   collapseText: 'Read Less',
+              //   maxLines: 4,
+              //   linkColor: Colors.blue,
+              //   style: TextStyle(fontSize: 16),
+              // ),
               const SizedBox(height: 24),
               const Text(
                 "Meet the Developers",
