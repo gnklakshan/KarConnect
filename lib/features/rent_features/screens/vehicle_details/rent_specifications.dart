@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:karconnect/features/dashboard/dashbord.dart';
+import 'package:karconnect/features/rent_features/screens/vehicle_details/booking_summery.dart';
 import 'package:karconnect/utils/constants/colors.dart';
 import 'package:karconnect/utils/constants/sizes.dart';
 import 'package:karconnect/utils/helpers/helper_functions.dart';
@@ -13,8 +14,14 @@ import '../../../../backend/data_store/book_vehicle_backend.dart';
 
 class RentSpecifications extends StatefulWidget {
   final String VehicleID;
+  final String Vehicle_model;
+  final int Price;
 
-  const RentSpecifications({super.key, required this.VehicleID});
+  const RentSpecifications(
+      {super.key,
+      required this.VehicleID,
+      required this.Vehicle_model,
+      required this.Price});
 
   @override
   State<RentSpecifications> createState() => _RentSpecificationsState();
@@ -87,7 +94,7 @@ class _RentSpecificationsState extends State<RentSpecifications> {
       DateTime endDate = _dateFormat.parse(_endDateController.text);
       return endDate.isAfter(startDate);
     } catch (e) {
-      return false; // Handle parsing error if needed
+      return false; // Handle parsing error
     }
   }
 
@@ -382,29 +389,33 @@ class _RentSpecificationsState extends State<RentSpecifications> {
                         ),
                       );
                     } else {
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (BuildContext context) {
-                          return Dialog(
-                            backgroundColor: Color.fromARGB(0, 218, 214, 214),
-                            child: Stack(
-                              children: [
-                                BackdropFilter(
-                                  filter:
-                                      ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                                  child: AlertBox(
-                                    VehicleID: widget.VehicleID,
-                                    startDate: start_date,
-                                    startTime: start_time,
-                                    endDate: end_date,
-                                    endTime: end_time,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                      String pickupDateTime = formatDateTime(
+                          _startDateController, _startTimeController);
+                      String dropoffDateTime = formatDateTime(
+                          _endDateController, _endTimeController);
+                      int days =
+                          getDayCount(_startDateController, _endDateController);
+
+                      Get.to(
+                        () => BookingConfirmationPage(
+                          VehicleID: widget.VehicleID,
+                          pickupDateTime: pickupDateTime,
+                          pickupLocation: 'Colombo ',
+                          dropoffDateTime: dropoffDateTime,
+                          dropoffLocation: 'Colombo ',
+                          carPrice: (widget.Price) * days,
+                          carModel: widget.Vehicle_model,
+                          seats: 4,
+                          transmission: 'Automatic',
+                          largeBags: 1,
+                          smallBags: 1,
+                          unlimitedMileage: true,
+                          driverIncluded: true,
+                          startDate: _startDateController.text,
+                          startTime: _startTimeController.text,
+                          endDate: _endDateController.text,
+                          endTime: _endTimeController.text,
+                        ),
                       );
                     }
                   },
@@ -437,62 +448,43 @@ class _RentSpecificationsState extends State<RentSpecifications> {
   }
 }
 
-class AlertBox extends StatelessWidget {
-  final String VehicleID;
-  final String startDate;
-  final String endDate;
-  final String startTime;
-  final String endTime;
-  const AlertBox(
-      {super.key,
-      required this.VehicleID,
-      required this.startDate,
-      required this.startTime,
-      required this.endDate,
-      required this.endTime});
+String formatDateTime(TextEditingController dateController,
+    TextEditingController timeController) {
+  try {
+    // Parse the date and time from the controllers
+    DateTime date = DateFormat("dd-MM-yyyy").parseStrict(dateController.text);
+    DateTime time = DateFormat("hh:mm a").parseStrict(timeController.text);
 
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoAlertDialog(
-      title: Column(
-        children: [
-          Icon(
-            CupertinoIcons.check_mark_circled,
-            color: CupertinoColors.activeGreen,
-            size: 120,
-          ),
-          SizedBox(width: 12),
-          Text("Confirm Booking"),
-        ],
-      ),
-      insetAnimationDuration: Durations.short3,
-      actions: [
-        CupertinoDialogAction(
-          onPressed: () {
-            Navigator.pop(context); // Close the dialog
-          },
-          child: Text("Cancel"),
-        ),
-        CupertinoDialogAction(
-            onPressed: () {
-              addRentedVehicle(
-                  VehicleID, startDate, endDate, startTime, endTime);
-              RentedVehicleList(
-                  VehicleID, startDate, endDate, startTime, endTime);
-              updateVehicleAvailability(VehicleID);
-              Navigator.pop(context); // Close the dialog
-              Get.to(() => dashboard());
-              // Navigator.pop(context); // Close the dialog
-            },
-            child: Text("Confirm")),
-      ],
-      content: Column(
-        children: [
-          Text(
-            "Are you sure you want to book the vehicle for $startDate $startTime to $endDate $endTime?",
-          ),
-        ],
-      ),
+    // Combine date and time
+    DateTime combinedDateTime = DateTime(
+      date.year,
+      date.month,
+      date.day,
+      time.hour,
+      time.minute,
     );
+
+    // Format the combined datetime to '26 Aug, 10:00'
+    String formattedDate = DateFormat("d MMM, hh:mm").format(combinedDateTime);
+
+    return formattedDate;
+  } catch (e) {
+    return "Invalid date or time format";
+  }
+}
+
+int getDayCount(TextEditingController startDateController,
+    TextEditingController endDateController) {
+  try {
+    DateFormat dateFormat = DateFormat("dd-MM-yyyy");
+
+    DateTime startDate = dateFormat.parse(startDateController.text);
+    DateTime endDate = dateFormat.parse(endDateController.text);
+
+    // Calculate the difference in days
+    int dayCount = endDate.difference(startDate).inDays;
+    return dayCount > 0 ? dayCount : 0;
+  } catch (e) {
+    return 0;
   }
 }

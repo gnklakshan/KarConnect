@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:karconnect/features/dashboard/MainPages/bookingpage.dart';
+import 'package:karconnect/features/dashboard/MainPages/bookingpage_main_tab.dart';
 import 'package:karconnect/features/dashboard/MainPages/homepage.dart';
 import 'package:karconnect/features/dashboard/MainPages/explorepage.dart';
 import 'package:karconnect/features/dashboard/MainPages/profilepage.dart';

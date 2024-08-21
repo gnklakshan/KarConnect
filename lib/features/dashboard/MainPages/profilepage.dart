@@ -8,7 +8,7 @@ import 'package:karconnect/backend/data_retrieve/dataservice_from_collection.dar
 import 'package:karconnect/backend/firebase/firebase_auth.dart';
 import 'package:karconnect/dummy_temp.dart';
 import 'package:karconnect/features/authentication/screens/login/login.dart';
-import 'package:karconnect/features/dashboard/MainPages/bookingpage.dart';
+import 'package:karconnect/features/dashboard/MainPages/bookingpage_main_tab.dart';
 import 'package:karconnect/features/dashboard/widgets_class/aboutus.dart';
 import 'package:karconnect/utils/constants/sizes.dart';
 import 'package:karconnect/utils/helpers/helper_functions.dart';

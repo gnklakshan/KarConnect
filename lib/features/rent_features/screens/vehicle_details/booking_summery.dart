@@ -1,61 +1,20 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
+import 'dart:ui';
 
-// class dummy extends StatelessWidget {
-//   const dummy({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final uid = FirebaseAuth.instance.currentUser!.uid;
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text("dummy $uid"),
-//       ),
-//       body: Center(child: Text("Need To Design")),
-//     );
-//   }
-// }
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:karconnect/backend/firebase/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:karconnect/backend/data_store/book_vehicle_backend.dart';
 
-class dummy extends StatelessWidget {
-  const dummy({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text("dummy ")),
-      ),
-      // body: Center(child: Text("Need To Design")),
-      body: BookingConfirmationPage(
-        pickupDateTime: '26 Aug, 10:00',
-        pickupLocation: 'Colombo Downtown',
-        dropoffDateTime: '29 Aug, 10:00',
-        dropoffLocation: 'Colombo Downtown',
-        carPrice: 177.45,
-        carModel: 'Toyota Prius',
-        seats: 4,
-        transmission: 'Automatic',
-        largeBags: 1,
-        smallBags: 1,
-        unlimitedMileage: true,
-        driverIncluded: true,
-      ),
-    );
-  }
-}
+import '../../../dashboard/dashbord.dart';
 
 class BookingConfirmationPage extends StatelessWidget {
+  final String VehicleID;
   final String pickupDateTime;
   final String pickupLocation;
   final String dropoffDateTime;
   final String dropoffLocation;
-  final double carPrice;
+  final int carPrice;
   final String carModel;
   final int seats;
   final String transmission;
@@ -63,29 +22,40 @@ class BookingConfirmationPage extends StatelessWidget {
   final int smallBags;
   final bool unlimitedMileage;
   final bool driverIncluded;
+  final String startDate;
+  final String endDate;
+  final String startTime;
+  final String endTime;
 
-  const BookingConfirmationPage({
-    Key? key,
-    required this.pickupDateTime,
-    required this.pickupLocation,
-    required this.dropoffDateTime,
-    required this.dropoffLocation,
-    required this.carPrice,
-    required this.carModel,
-    required this.seats,
-    required this.transmission,
-    required this.largeBags,
-    required this.smallBags,
-    required this.unlimitedMileage,
-    required this.driverIncluded,
-  }) : super(key: key);
+  const BookingConfirmationPage(
+      {Key? key,
+      required this.VehicleID,
+      required this.pickupDateTime,
+      required this.pickupLocation,
+      required this.dropoffDateTime,
+      required this.dropoffLocation,
+      required this.carPrice,
+      required this.carModel,
+      required this.seats,
+      required this.transmission,
+      required this.largeBags,
+      required this.smallBags,
+      required this.unlimitedMileage,
+      required this.driverIncluded,
+      required this.startDate,
+      required this.startTime,
+      required this.endDate,
+      required this.endTime})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Booking Summery',
+        title: Center(
+          child: const Text(
+            'Booking Summery',
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -112,7 +82,9 @@ class BookingConfirmationPage extends StatelessWidget {
                   icon: FontAwesomeIcons.moneyBillAlt),
               _DetailRow(
                   'Car hire charge', '\Rs ${carPrice.toStringAsFixed(2)}'),
-              _DetailRow('Total price', '\Rs ${carPrice.toStringAsFixed(2)}'),
+              _DetailRow('Service Charge', '\Rs ${2500.toStringAsFixed(2)}'),
+              _DetailRow(
+                  'Total price', '\Rs ${(carPrice + 2500).toStringAsFixed(2)}'),
               const SizedBox(height: 16),
               const SizedBox(height: 16),
               _PaymentInstructions(),
@@ -122,6 +94,29 @@ class BookingConfirmationPage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     print('Confirmed booking');
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                          backgroundColor: Color.fromARGB(0, 218, 214, 214),
+                          child: Stack(
+                            children: [
+                              BackdropFilter(
+                                filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                                child: AlertBox(
+                                  VehicleID: VehicleID,
+                                  startDate: startDate,
+                                  startTime: startTime,
+                                  endDate: endDate,
+                                  endTime: endTime,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
                   },
                   child: const Text('Confirm Booking'),
                 ),
@@ -245,6 +240,66 @@ class _PaymentInstructions extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AlertBox extends StatelessWidget {
+  final String VehicleID;
+  final String startDate;
+  final String endDate;
+  final String startTime;
+  final String endTime;
+  const AlertBox(
+      {super.key,
+      required this.VehicleID,
+      required this.startDate,
+      required this.startTime,
+      required this.endDate,
+      required this.endTime});
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoAlertDialog(
+      title: Column(
+        children: [
+          Icon(
+            CupertinoIcons.check_mark_circled,
+            color: CupertinoColors.activeGreen,
+            size: 120,
+          ),
+          SizedBox(width: 12),
+          Text("Confirm Booking"),
+        ],
+      ),
+      insetAnimationDuration: Durations.short3,
+      actions: [
+        CupertinoDialogAction(
+          onPressed: () {
+            Navigator.pop(context); // Close the dialog
+          },
+          child: Text("Cancel"),
+        ),
+        CupertinoDialogAction(
+            onPressed: () {
+              addRentedVehicle(
+                  VehicleID, startDate, endDate, startTime, endTime);
+              RentedVehicleList(
+                  VehicleID, startDate, endDate, startTime, endTime);
+              updateVehicleAvailability(VehicleID);
+              Navigator.pop(context); // Close the dialog
+              Get.to(() => dashboard());
+              // Navigator.pop(context); // Close the dialog
+            },
+            child: Text("Confirm")),
+      ],
+      content: Column(
+        children: [
+          Text(
+            "Are you sure you want to book the vehicle for $startDate $startTime to $endDate $endTime?",
           ),
         ],
       ),

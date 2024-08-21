@@ -83,8 +83,11 @@ class VehicleDetails extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: GestureDetector(
-                        onTap: () => Get.to(
-                            () => RentSpecifications(VehicleID: VehicleID)),
+                        onTap: () => Get.to(() => RentSpecifications(
+                              VehicleID: VehicleID,
+                              Vehicle_model: VehicleName,
+                              Price: price,
+                            )),
                         child: const Row(
                           children: [
                             Text(
@@ -112,8 +115,11 @@ class VehicleDetails extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: GestureDetector(
-                        onTap: () => Get.to(
-                            () => RentSpecifications(VehicleID: VehicleID)),
+                        onTap: () => Get.to(() => RentSpecifications(
+                              VehicleID: VehicleID,
+                              Vehicle_model: VehicleName,
+                              Price: price,
+                            )),
                         child: const Row(
                           children: [
                             Text(
@@ -147,8 +153,11 @@ class VehicleDetails extends StatelessWidget {
                     SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                            onPressed: () => Get.to(
-                                () => RentSpecifications(VehicleID: VehicleID)),
+                            onPressed: () => Get.to(() => RentSpecifications(
+                                  VehicleID: VehicleID,
+                                  Vehicle_model: VehicleName,
+                                  Price: price,
+                                )),
                             child: Text("Rent Vehicle"))),
                     //checkoutbutton
                     //description
