@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:karconnect/backend/data_retrieve/dataservice_from_collection.dart';
-import 'package:karconnect/features/Search_filter/widgets/vehiclecard_dup.dart';
+import 'package:karconnect/backend/data_fetch_and_represent/data_services/dataservice_from_collection.dart';
+import 'package:karconnect/features/dashboard/widgets_class/Search_filter/widgets/vehiclecard_for_search.dart';
 
 class Search_result_list extends StatefulWidget {
   final String collectionName;

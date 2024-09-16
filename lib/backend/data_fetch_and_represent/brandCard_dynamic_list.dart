@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:karconnect/backend/data_retrieve/dataservice_from_collection.dart';
-import 'package:karconnect/features/dashboard/widgets_class/brandCard.dart';
+import 'package:karconnect/backend/data_fetch_and_represent/data_services/dataservice_from_collection.dart';
+import 'package:karconnect/backend/data_fetch_and_represent/widgets/brandCard.dart';
 
 class Brand_list extends StatelessWidget {
   final String collectionName;

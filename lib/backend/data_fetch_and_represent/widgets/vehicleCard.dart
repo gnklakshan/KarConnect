@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:karconnect/backend/data_retrieve/fetch_single_vehicle_data.dart';
-import 'package:karconnect/features/rent_features/screens/vehicle_details/vehicle_details.dart';
+import 'package:karconnect/backend/data_fetch_and_represent/data_services/fetch_single_vehicle_data.dart';
 
 class vehicle_card extends StatelessWidget {
   final String vehicleName;
@@ -20,7 +19,7 @@ class vehicle_card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context); // Get the current theme
+    final theme = Theme.of(context);
 
     return Container(
       width: 180,
@@ -32,7 +31,6 @@ class vehicle_card extends StatelessWidget {
                 docId: docID,
               ));
         },
-        // onTap: () => Get.to(() => const VehicleDetails()),
         child: Card(
           elevation: 2,
           shape: RoundedRectangleBorder(

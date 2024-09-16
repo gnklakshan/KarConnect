@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-//  booking tab summer card-------------------------------------------------------------------------------------------
+//  booking tab summery card-------------------------------------------------------------------------------------------
 
 class VehicleBookedCard extends StatelessWidget {
   final String imageUrl;

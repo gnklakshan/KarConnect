@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:karconnect/features/Search_filter/widgets/search_result.dart';
+import 'package:karconnect/features/dashboard/widgets_class/Search_filter/widgets/search_result.dart';
 
 class SearchVehicle extends StatefulWidget {
   const SearchVehicle({super.key});
@@ -120,8 +120,7 @@ class _SearchVehicleState extends State<SearchVehicle> {
                 child: const Text("Search"),
                 style: ElevatedButton.styleFrom(
                   side: BorderSide.none,
-                  backgroundColor:
-                      theme.primaryColor, // Use theme's primary color
+                  backgroundColor: theme.primaryColor, //  theme's primary color
                 ),
               ),
             ),

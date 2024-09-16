@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:karconnect/features/dashboard/widgets_class/book_details_card.dart';
+import 'package:karconnect/backend/data_fetch_and_represent/widgets/booked_vehicle_details_card.dart';
 
 class VehicleBookedList extends StatelessWidget {
   String type;

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:karconnect/backend/data_retrieve/dataservice_from_collection.dart';
-import 'package:karconnect/features/dashboard/widgets_class/vehicleCard.dart';
+import 'package:karconnect/backend/data_fetch_and_represent/data_services/dataservice_from_collection.dart';
+import 'package:karconnect/backend/data_fetch_and_represent/widgets/vehicleCard.dart';
 
 class vehicle_card_list extends StatefulWidget {
   final String collectionName;

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:karconnect/backend/data_retrieve/brandCard_dynamic_list.dart';
-import 'package:karconnect/backend/data_retrieve/vehicle_card_dynamicList.dart';
-import 'package:karconnect/dummy_temp.dart';
-import 'package:karconnect/features/notification/notificatin.dart';
+import 'package:karconnect/backend/data_fetch_and_represent/brandCard_dynamic_list.dart';
+import 'package:karconnect/backend/data_fetch_and_represent/vehicle_card_dynamicList.dart';
+import 'package:karconnect/features/dashboard/Pages/subpages/notification/notificatin.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -31,21 +30,17 @@ class Home extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  vehicle_card_list(
+                  const vehicle_card_list(
                     collectionName: 'vehicle_db',
                   ),
-
-                  // GestureDetector(
-                  //     onTap: () => Get.toNamed('/details'),
-                  //     child: const vehicle_card()),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   List_Title("Available Near you", context),
                   const SizedBox(
                     height: 15,
                   ),
-                  vehicle_card_list(
+                  const vehicle_card_list(
                     collectionName: 'vehicle_db',
                   ),
                 ],
@@ -54,6 +49,8 @@ class Home extends StatelessWidget {
           ),
         ));
   }
+
+  //Heading reuseable class
 
   Row List_Title(String Topic, BuildContext context) {
     return Row(
@@ -75,9 +72,9 @@ class Home extends StatelessWidget {
   }
 }
 
+//App bar
 AppBar LocationBar(BuildContext context) {
   final theme = Theme.of(context);
-
   return AppBar(
     automaticallyImplyLeading: false,
     title: Row(
@@ -118,7 +115,6 @@ AppBar LocationBar(BuildContext context) {
         IconButton(
           onPressed: () {
             Get.to(() => const NotificationScreen());
-            // NotificationScreen();
           },
           icon: Icon(
             Icons.notifications_none_outlined,

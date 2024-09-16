@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:karconnect/utils/constants/sizes.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -37,11 +36,6 @@ class OnBoardingScreen extends StatelessWidget {
                 title: TTexts.onBoardingTitle2,
                 subTitle: TTexts.onBoardingSubTitle2,
               ),
-              // OnBoardingPage(
-              //   image: TImages.OnBoardingImage3,
-              //   title: TTexts.onBoardingTitle3,
-              //   subTitle: TTexts.onBoardingSubTitle3,
-              // ),
             ],
           ),
           const OnBoardingSkip(),

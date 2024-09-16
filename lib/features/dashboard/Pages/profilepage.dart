@@ -1,21 +1,19 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:karconnect/backend/data_retrieve/dataservice_from_collection.dart';
+import 'package:karconnect/backend/data_fetch_and_represent/data_services/dataservice_from_collection.dart';
 import 'package:karconnect/backend/firebase/firebase_auth.dart';
 import 'package:karconnect/dummy_temp.dart';
 import 'package:karconnect/features/authentication/screens/login/login.dart';
-import 'package:karconnect/features/dashboard/MainPages/bookingpage_main_tab.dart';
-import 'package:karconnect/features/dashboard/widgets_class/aboutus.dart';
+import 'package:karconnect/features/dashboard/Pages/subpages/rateUs.dart';
+import 'package:karconnect/features/dashboard/Pages/view_bookings.dart';
+import 'package:karconnect/features/dashboard/Pages/subpages/aboutus.dart';
 import 'package:karconnect/utils/constants/sizes.dart';
 import 'package:karconnect/utils/helpers/helper_functions.dart';
 import 'package:karconnect/utils/theme/custom_themes/outlined_button_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../widgets_class/rateUs.dart';
 
 class profile extends StatefulWidget {
   const profile({Key? key}) : super(key: key);

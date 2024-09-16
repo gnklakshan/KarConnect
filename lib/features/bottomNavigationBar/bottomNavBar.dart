@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:karconnect/features/dashboard/MainPages/bookingpage_main_tab.dart';
-import 'package:karconnect/features/dashboard/MainPages/homepage.dart';
-import 'package:karconnect/features/dashboard/MainPages/explorepage.dart';
-import 'package:karconnect/features/dashboard/MainPages/profilepage.dart';
-import 'package:karconnect/utils/theme/theme.dart'; // Import your custom theme
+import 'package:karconnect/features/dashboard/Pages/homepage.dart';
+import 'package:karconnect/features/dashboard/Pages/explorepage.dart';
+import 'package:karconnect/features/dashboard/Pages/profilepage.dart';
+import 'package:karconnect/features/dashboard/Pages/view_bookings.dart';
+import 'package:karconnect/utils/theme/theme.dart';
 
 class BottomNavigationBarCustom extends StatefulWidget {
   const BottomNavigationBarCustom({Key? key}) : super(key: key);

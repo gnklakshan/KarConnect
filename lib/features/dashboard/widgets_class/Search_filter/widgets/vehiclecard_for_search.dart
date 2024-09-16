@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:karconnect/backend/data_retrieve/fetch_single_vehicle_data.dart';
-import 'package:karconnect/features/rent_features/screens/vehicle_details/vehicle_details.dart';
+import 'package:karconnect/backend/data_fetch_and_represent/data_services/fetch_single_vehicle_data.dart';
 
 class vehicle_card_search extends StatelessWidget {
   final String vehicleName;
@@ -20,7 +19,7 @@ class vehicle_card_search extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context); // Get the current theme
+    final theme = Theme.of(context);
 
     return Container(
       width: 150,
@@ -45,7 +44,7 @@ class vehicle_card_search extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
                 child: AspectRatio(
-                  aspectRatio: 16 / 9, // Adjust the aspect ratio as needed
+                  aspectRatio: 16 / 9,
                   child: FadeInImage(
                     placeholder: AssetImage('assets/images/car.jpg'),
                     image: NetworkImage(mainImage),
@@ -80,8 +79,8 @@ Padding vehicle_cardDetails(
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.w600,
-                  color: theme.textTheme.bodyMedium
-                      ?.color, // Use the text color from the theme
+                  color: theme
+                      .textTheme.bodyMedium?.color, // text color from the theme
                 ),
               ),
             ),
@@ -118,8 +117,7 @@ Padding vehicle_cardDetails(
         Text(
           " Rs $price/Day",
           style: TextStyle(
-            color: theme.textTheme.bodySmall
-                ?.color, // Use the text color from the theme
+            color: theme.textTheme.bodySmall?.color, //text color from the theme
           ),
         ),
       ],
