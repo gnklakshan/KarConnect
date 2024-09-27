@@ -10,6 +10,7 @@ import 'package:karconnect/features/authentication/screens/login/login.dart';
 import 'package:karconnect/features/dashboard/Pages/subpages/rateUs.dart';
 import 'package:karconnect/features/dashboard/Pages/view_bookings.dart';
 import 'package:karconnect/features/dashboard/Pages/subpages/aboutus.dart';
+import 'package:karconnect/features/map_navigation/map_page.dart';
 import 'package:karconnect/utils/constants/sizes.dart';
 import 'package:karconnect/utils/helpers/helper_functions.dart';
 import 'package:karconnect/utils/theme/custom_themes/outlined_button_theme.dart';
@@ -95,7 +96,7 @@ class _profileState extends State<profile> {
           context: context,
           icon: Iconsax.people,
           label: "profile",
-          onPressed: () => Get.to(() => dummy()),
+          onPressed: () => Get.to(() => MapPage()),
         ),
         _buildSpacedprofileOption(
           context: context,
@@ -264,11 +265,15 @@ class _profileState extends State<profile> {
     );
   }
 
-  void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+  void _launchURL(String uurl) async {
+    var url = Uri.parse(uurl);
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
     } else {
-      // throw 'Could not launch $url';
+      print('Could not launch $url');
+
+// throw 'Could not launch $url';
     }
   }
 }
