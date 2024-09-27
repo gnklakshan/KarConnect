@@ -1,166 +1,8 @@
-// import 'package:flutter/material.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-// import 'package:location/location.dart';
-
-// class MapPage extends StatefulWidget {
-//   const MapPage({Key? key}) : super(key: key);
-
-//   @override
-//   State<MapPage> createState() => _MapPageState();
-// }
-
-// class _MapPageState extends State<MapPage> {
-//   final Location _locationController = Location();
-//   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-//   LatLng? _currentPosition;
-//   Set<Marker> _markers = {};
-//   GoogleMapController? _mapController;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     getLocationUpdates();
-//     fetchVehicles();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text("Locate Nearest Vehicles"),
-//       ),
-//       body: _currentPosition == null
-//           ? Center(child: CircularProgressIndicator())
-//           : GoogleMap(
-//               initialCameraPosition: CameraPosition(
-//                 target: _currentPosition!,
-//                 zoom: 14,
-//               ),
-//               onMapCreated: (GoogleMapController controller) {
-//                 _mapController = controller;
-//               },
-//               myLocationEnabled: true,
-//               markers: _markers,
-//             ),
-//     );
-//   }
-
-//   Future<void> getLocationUpdates() async {
-//     bool _serviceEnabled;
-//     PermissionStatus _permissionGranted;
-
-//     // Check if location service is enabled
-//     _serviceEnabled = await _locationController.serviceEnabled();
-//     if (!_serviceEnabled) {
-//       _serviceEnabled = await _locationController.requestService();
-//       if (!_serviceEnabled) return;
-//     }
-
-//     // Check for location permission
-//     _permissionGranted = await _locationController.hasPermission();
-//     if (_permissionGranted == PermissionStatus.denied) {
-//       _permissionGranted = await _locationController.requestPermission();
-//       if (_permissionGranted != PermissionStatus.granted) return;
-//     }
-
-//     // Listen to location changes
-//     _locationController.onLocationChanged
-//         .listen((LocationData currentLocation) {
-//       if (currentLocation.latitude != null &&
-//           currentLocation.longitude != null) {
-//         setState(() {
-//           _currentPosition =
-//               LatLng(currentLocation.latitude!, currentLocation.longitude!);
-//           if (_mapController != null) {
-//             _mapController!
-//                 .animateCamera(CameraUpdate.newLatLng(_currentPosition!));
-//           }
-//         });
-//       }
-//     });
-//   }
-
-//   Future<void> fetchVehicles() async {
-//     try {
-//       QuerySnapshot vehiclesSnapshot =
-//           await _firestore.collection('vehicle_db').get();
-
-//       setState(() {
-//         // Use where to filter out any null markers
-//         _markers = vehiclesSnapshot.docs
-//             .map((doc) {
-//               Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-
-//               // Extract the GeoPoint from the location field
-//               GeoPoint? geoPoint = data['location'] as GeoPoint?;
-
-//               // Ensure the GeoPoint is present
-//               if (geoPoint != null) {
-//                 LatLng position = LatLng(geoPoint.latitude, geoPoint.longitude);
-
-//                 return Marker(
-//                   markerId: MarkerId(doc.id),
-//                   position: position,
-//                   icon: BitmapDescriptor.defaultMarkerWithHue(
-//                       BitmapDescriptor.hueGreen),
-//                   onTap: () => _showVehicleDetails(data),
-//                 );
-//               } else {
-//                 // If GeoPoint is missing, return null
-//                 return null;
-//               }
-//             })
-//             .where((marker) => marker != null)
-//             .cast<Marker>()
-//             .toSet(); // Filter out null values
-//       });
-//     } catch (e) {
-//       print("Error fetching vehicles: $e");
-//     }
-//   }
-
-//   void _showVehicleDetails(Map<String, dynamic> vehicleData) {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           title: Text(vehicleData['name'] ?? 'Vehicle Details'),
-//           content: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               Text("Model: ${vehicleData['model'] ?? 'N/A'}"),
-//               Text("Battery: ${vehicleData['battery'] ?? 'N/A'}"),
-//               Text(
-//                   "Unlock Fee: \$${vehicleData['unlockFee']?.toStringAsFixed(2) ?? 'N/A'}"),
-//               Text(
-//                   "Rate: \$${vehicleData['rate']?.toStringAsFixed(2) ?? 'N/A'}/min"),
-//             ],
-//           ),
-//           actions: [
-//             TextButton(
-//               child: Text("Close"),
-//               onPressed: () => Navigator.of(context).pop(),
-//             ),
-//             ElevatedButton(
-//               child: Text("Book Ride"),
-//               onPressed: () {
-//                 // Implement booking logic here
-//                 Navigator.of(context).pop();
-//               },
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:karconnect/backend/data_fetch_and_represent/widgets/vehicleCard.dart';
 import 'package:location/location.dart';
 import 'dart:ui' as ui;
 import 'dart:async';
@@ -179,9 +21,12 @@ class _MapPageState extends State<MapPage> {
 
   LatLng? _currentPosition;
   Set<Marker> _markers = {};
+  Set<Circle> _circles = {};
   GoogleMapController? _mapController;
   BitmapDescriptor? _carIcon;
   StreamSubscription<LocationData>? _locationSubscription;
+
+  final double _geofenceRadius = 5000; // 5000 meters
 
   @override
   void initState() {
@@ -223,8 +68,8 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Locate Nearest Vehicles"),
-        backgroundColor: Colors.blue,
+        title: Text("Find Nearest Vehicles"),
+        backgroundColor: Colors.white54,
       ),
       body: _currentPosition == null
           ? Center(child: CircularProgressIndicator())
@@ -241,12 +86,14 @@ class _MapPageState extends State<MapPage> {
                   myLocationEnabled: true,
                   myLocationButtonEnabled: true,
                   markers: _markers,
+                  circles: _circles,
                   mapType: MapType.normal,
                 ),
                 Positioned(
-                  top: 16,
-                  right: 16,
+                  bottom: 16,
+                  left: 16,
                   child: FloatingActionButton(
+                    backgroundColor: Color.fromARGB(247, 63, 138, 236),
                     child: Icon(Icons.refresh),
                     onPressed: fetchVehicles,
                     tooltip: 'Refresh Vehicles',
@@ -282,15 +129,29 @@ class _MapPageState extends State<MapPage> {
           setState(() {
             _currentPosition =
                 LatLng(currentLocation.latitude!, currentLocation.longitude!);
-            if (_mapController != null) {
-              _mapController!
-                  .animateCamera(CameraUpdate.newLatLng(_currentPosition!));
-            }
+            _updateGeofence();
           });
         }
       });
     } catch (e) {
       print("Error getting location: $e");
+    }
+  }
+
+  void _updateGeofence() {
+    if (_currentPosition != null) {
+      setState(() {
+        _circles = {
+          Circle(
+            circleId: CircleId("geofence"),
+            center: _currentPosition!,
+            radius: _geofenceRadius,
+            fillColor: Colors.blue.withOpacity(0.1),
+            strokeColor: Colors.blue,
+            strokeWidth: 2,
+          )
+        };
+      });
     }
   }
 
@@ -309,12 +170,12 @@ class _MapPageState extends State<MapPage> {
               if (geoPoint != null) {
                 LatLng position = LatLng(geoPoint.latitude, geoPoint.longitude);
                 return Marker(
-                  markerId: MarkerId(doc.id),
+                  markerId: MarkerId(doc.id), //doc id on db
                   position: position,
                   icon: _carIcon ??
                       BitmapDescriptor.defaultMarkerWithHue(
                           BitmapDescriptor.hueGreen),
-                  onTap: () => _showVehicleDetails(data),
+                  onTap: () => _showVehicleDetails(data, position, doc.id),
                 );
               } else {
                 return null;
@@ -334,42 +195,34 @@ class _MapPageState extends State<MapPage> {
     }
   }
 
-  void _showVehicleDetails(Map<String, dynamic> vehicleData) {
+  void _showVehicleDetails(Map<String, dynamic> vehicleData,
+      LatLng vehiclePosition, String documentId) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(vehicleData['name'] ?? 'Vehicle Details'),
-          content: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text("Model: ${vehicleData['model'] ?? 'N/A'}"),
-                Text("Battery: ${vehicleData['battery'] ?? 'N/A'}"),
-                Text(
-                    "Unlock Fee: \$${vehicleData['unlockFee']?.toStringAsFixed(2) ?? 'N/A'}"),
-                Text(
-                    "Rate: \$${vehicleData['rate']?.toStringAsFixed(2) ?? 'N/A'}/min"),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              child: Text("Close"),
+        return SafeArea(
+          child: AlertDialog(
+            backgroundColor: Colors.white10,
+            title: IconButton(
+              icon: Icon(
+                Iconsax.close_circle,
+                color: Colors.white,
+                size: 28,
+              ),
               onPressed: () => Navigator.of(context).pop(),
             ),
-            ElevatedButton(
-              child: Text("Book Ride"),
-              onPressed: () {
-                // Implement booking logic here
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Booking feature coming soon!")),
-                );
-              },
+            content: SizedBox(
+              height: 300,
+              child: SingleChildScrollView(
+                child: vehicle_card(
+                  vehicleData['name'],
+                  vehicleData['price'],
+                  vehicleData['main_image'],
+                  documentId,
+                ),
+              ),
             ),
-          ],
+          ),
         );
       },
     );
