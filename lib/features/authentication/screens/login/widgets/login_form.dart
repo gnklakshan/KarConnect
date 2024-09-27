@@ -20,6 +20,9 @@ class _TLoginFormState extends State<TLoginForm> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  // Boolean variable to track password visibility
+  bool _isObscure = true;
+
   @override
   void dispose() {
     // Dispose the controllers when the widget is disposed
@@ -48,12 +51,23 @@ class _TLoginFormState extends State<TLoginForm> {
             // Password
             TextFormField(
               controller: passwordController,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Iconsax.password_check),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Iconsax.password_check),
                 labelText: TTexts.password,
-                suffixIcon: Icon(Iconsax.eye_slash),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    // Change icon based on _isObscure
+                    _isObscure ? Iconsax.eye_slash : Iconsax.eye,
+                  ),
+                  onPressed: () {
+                    // Toggle password visibility
+                    setState(() {
+                      _isObscure = !_isObscure;
+                    });
+                  },
+                ),
               ),
-              obscureText: true, // Add this to hide the password
+              obscureText: _isObscure, // Control the visibility of the password
             ),
             const SizedBox(height: TSizes.spaceBtwInputFields / 2),
 
@@ -81,37 +95,38 @@ class _TLoginFormState extends State<TLoginForm> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () async {
-                    String email = emailController.text.trim();
-                    String password = passwordController.text.trim();
-                    print("username $email $password");
-                    UserCredential? result =
-                        await signInWithEmailAndPassword(email, password);
-                    print("username $email $password");
-                    if (result != null) {
-                      // User created successfully
-                      print("Successfully login");
-                      Get.to(() => dashboard());
-                    } else {
-                      // Error occurred
-                      // Get.to(() => dashboard());
-                      Get.snackbar('Error', 'User creation failed',
-                          backgroundColor: Color.fromARGB(67, 255, 255, 255),
-                          icon: Icon(Icons.warning));
-                    }
-                    // final uid = FirebaseAuth.instance.currentUser!.uid;
-                    // print(uid.toString());
-                  },
-                  child: Text(TTexts.signIn)),
+                onPressed: () async {
+                  String email = emailController.text.trim();
+                  String password = passwordController.text.trim();
+                  print("username $email $password");
+                  UserCredential? result =
+                      await signInWithEmailAndPassword(email, password);
+                  print("username $email $password");
+                  if (result != null) {
+                    // User created successfully
+                    print("Successfully login");
+                    Get.to(() => dashboard());
+                  } else {
+                    // Error occurred
+                    Get.snackbar('Error', 'Login failed',
+                        backgroundColor:
+                            const Color.fromARGB(67, 255, 255, 255),
+                        icon: const Icon(Icons.warning));
+                  }
+                },
+                child: const Text(TTexts.signIn),
+              ),
             ),
             const SizedBox(height: TSizes.spaceBtwItems),
 
             // Create account button
             SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                    onPressed: () => Get.to(() => const SignupScreen()),
-                    child: Text(TTexts.createAccount))),
+              width: double.infinity,
+              child: OutlinedButton(
+                onPressed: () => Get.to(() => const SignupScreen()),
+                child: const Text(TTexts.createAccount),
+              ),
+            ),
           ],
         ),
       ),

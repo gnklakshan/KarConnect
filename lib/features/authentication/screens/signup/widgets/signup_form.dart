@@ -25,6 +25,9 @@ class _TSignupFormState extends State<TSignupForm> {
   final TextEditingController phoneNoController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  // Boolean variable to track password visibility
+  bool _isObscure = true;
+
   @override
   void dispose() {
     // Dispose the controllers when the widget is disposed
@@ -48,8 +51,9 @@ class _TSignupFormState extends State<TSignupForm> {
                 child: TextFormField(
                   controller: firstNameController,
                   decoration: const InputDecoration(
-                      labelText: TTexts.firstName,
-                      prefixIcon: Icon(Iconsax.user)),
+                    labelText: TTexts.firstName,
+                    prefixIcon: Icon(Iconsax.user),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -59,8 +63,9 @@ class _TSignupFormState extends State<TSignupForm> {
                 child: TextFormField(
                   controller: lastNameController,
                   decoration: const InputDecoration(
-                      labelText: TTexts.lastName,
-                      prefixIcon: Icon(Iconsax.user)),
+                    labelText: TTexts.lastName,
+                    prefixIcon: Icon(Iconsax.user),
+                  ),
                 ),
               ),
             ],
@@ -72,8 +77,9 @@ class _TSignupFormState extends State<TSignupForm> {
           TextFormField(
             controller: usernameController,
             decoration: const InputDecoration(
-                labelText: TTexts.username,
-                prefixIcon: Icon(Iconsax.user_edit)),
+              labelText: TTexts.username,
+              prefixIcon: Icon(Iconsax.user_edit),
+            ),
           ),
           const SizedBox(
             height: TSizes.spaceBtwInputFields,
@@ -82,7 +88,9 @@ class _TSignupFormState extends State<TSignupForm> {
           TextFormField(
             controller: emailController,
             decoration: const InputDecoration(
-                labelText: TTexts.email, prefixIcon: Icon(Iconsax.direct)),
+              labelText: TTexts.email,
+              prefixIcon: Icon(Iconsax.direct),
+            ),
           ),
           const SizedBox(
             height: TSizes.spaceBtwInputFields,
@@ -91,19 +99,32 @@ class _TSignupFormState extends State<TSignupForm> {
           TextFormField(
             controller: phoneNoController,
             decoration: const InputDecoration(
-                labelText: TTexts.phoneNo, prefixIcon: Icon(Iconsax.call)),
+              labelText: TTexts.phoneNo,
+              prefixIcon: Icon(Iconsax.call),
+            ),
           ),
           const SizedBox(
             height: TSizes.spaceBtwInputFields,
           ),
-          // Password
+          // Password with visibility toggle
           TextFormField(
             controller: passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(
+            obscureText: _isObscure, // Control password visibility
+            decoration: InputDecoration(
               labelText: TTexts.password,
-              prefixIcon: Icon(Iconsax.password_check),
-              suffixIcon: Icon(Iconsax.eye_slash),
+              prefixIcon: const Icon(Iconsax.password_check),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  // Change icon based on _isObscure
+                  _isObscure ? Iconsax.eye_slash : Iconsax.eye,
+                ),
+                onPressed: () {
+                  // Toggle password visibility
+                  setState(() {
+                    _isObscure = !_isObscure;
+                  });
+                },
+              ),
             ),
           ),
           const SizedBox(
@@ -125,6 +146,7 @@ class _TSignupFormState extends State<TSignupForm> {
                 final email = emailController.text;
                 final phoneNo = phoneNoController.text;
                 final password = passwordController.text;
+
                 if (firstName.isEmpty ||
                     lastName.isEmpty ||
                     username.isEmpty ||
@@ -134,32 +156,32 @@ class _TSignupFormState extends State<TSignupForm> {
                   Get.snackbar(
                     'Error',
                     'Fill Required Data Fields Correctly',
-                    backgroundColor: Color.fromARGB(92, 240, 240, 240),
+                    backgroundColor: const Color.fromARGB(92, 240, 240, 240),
                     icon: const Icon(
                       Icons.warning,
                       color: Color.fromARGB(225, 251, 3, 3),
                     ),
                   );
                 } else {
-                  final newuser =
+                  final newUser =
                       await registerWithEmailAndPassword(email, password);
 
-                  if (newuser != null) {
+                  if (newUser != null) {
                     addNewUser(firstName, lastName, username, email, phoneNo);
                     Get.to(() => const VerifyEmailScreen());
                   } else {
                     Get.snackbar(
                       'Error',
                       'User creation failed',
-                      backgroundColor: Color.fromARGB(112, 255, 255, 255),
-                      icon: Icon(Icons.warning),
+                      backgroundColor: const Color.fromARGB(112, 255, 255, 255),
+                      icon: const Icon(Icons.warning),
                     );
                   }
                 }
               },
               child: const Text('Create Account'),
             ),
-          )
+          ),
         ],
       ),
     );
