@@ -28,33 +28,38 @@ class vehicle_card_search extends StatelessWidget {
               collectionName: 'vehicle_db',
               docId: docID,
             )),
-        child: Card(
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-            side: BorderSide(
-              color: theme.dividerColor.withOpacity(0.4),
-              width: 0.5,
-            ),
-          ),
-          color: theme.scaffoldBackgroundColor,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
-                child: AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: FadeInImage(
-                    placeholder: AssetImage('assets/images/car.jpg'),
-                    image: NetworkImage(mainImage),
-                    fit: BoxFit.cover,
-                    placeholderFit: BoxFit.cover,
-                  ),
-                ),
+        child: SafeArea(
+          child: Card(
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(
+                color: theme.dividerColor.withOpacity(0.4),
+                width: 0.5,
               ),
-              vehicle_cardDetails(context, vehicleName, price),
-            ],
+            ),
+            color: theme.scaffoldBackgroundColor,
+            child: SafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ClipRRect(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(20.0)),
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: FadeInImage(
+                        placeholder: AssetImage('assets/images/car.jpg'),
+                        image: NetworkImage(mainImage),
+                        fit: BoxFit.cover,
+                        placeholderFit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  vehicle_cardDetails(context, vehicleName, price),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -67,7 +72,7 @@ Padding vehicle_cardDetails(
   final theme = Theme.of(context);
 
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding: const EdgeInsets.all(6.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -83,7 +83,7 @@ class VehicleDetails extends StatelessWidget {
                                   fontWeight: FontWeight.w500),
                             ),
                             SizedBox(
-                              width: 5,
+                              width: 4,
                             ),
                             Icon(Icons.arrow_forward_ios,
                                 size: 12,
@@ -113,7 +113,7 @@ class VehicleDetails extends StatelessWidget {
                               style: TextStyle(fontSize: TSizes.fontSizeMd),
                             ),
                             SizedBox(
-                              width: 130,
+                              width: 120,
                             ),
                             Text(
                               "View more",

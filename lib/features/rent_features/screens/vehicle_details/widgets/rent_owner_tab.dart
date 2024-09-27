@@ -54,21 +54,26 @@ class TRentOwnerDetailsTab extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(
-            width: TSizes.spaceBtwItems * 5,
+          // const SizedBox(
+          //   width: TSizes.spaceBtwItems * 5,
+          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.message_outlined,
+                    size: TSizes.iconMd,
+                  )),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.call_end_outlined,
+                    size: TSizes.iconMd,
+                  ))
+            ],
           ),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.message_outlined,
-                size: TSizes.iconMd,
-              )),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.call_end_outlined,
-                size: TSizes.iconMd,
-              ))
         ],
       ),
     );
