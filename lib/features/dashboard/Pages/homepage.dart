@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:karconnect/backend/data_fetch_and_represent/brandCard_dynamic_list.dart';
 import 'package:karconnect/backend/data_fetch_and_represent/vehicle_card_dynamicList.dart';
 import 'package:karconnect/features/dashboard/Pages/subpages/notification/notificatin.dart';
+import 'package:karconnect/features/map_navigation/map_page.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -18,7 +19,7 @@ class Home extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  List_Title("Top Brand", context),
+                  List_Title("Top Brand", "View all", context),
                   const SizedBox(
                     height: 15,
                   ),
@@ -26,7 +27,11 @@ class Home extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  List_Title("Recent Best Cars", context),
+                  GestureDetector(
+                    child:
+                        List_Title("Recent Best Cars", "View on Map", context),
+                    onTap: () => Get.to(const MapPage()),
+                  ),
                   const SizedBox(
                     height: 15,
                   ),
@@ -36,7 +41,11 @@ class Home extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  List_Title("Available Near you", context),
+                  GestureDetector(
+                    child: List_Title(
+                        "Available Near you", "View on Map", context),
+                    onTap: () => Get.to(const MapPage()),
+                  ),
                   const SizedBox(
                     height: 15,
                   ),
@@ -52,7 +61,7 @@ class Home extends StatelessWidget {
 
   //Heading reuseable class
 
-  Row List_Title(String Topic, BuildContext context) {
+  Row List_Title(String Topic, String option, BuildContext context) {
     return Row(
       children: [
         Expanded(
@@ -60,11 +69,11 @@ class Home extends StatelessWidget {
           Topic,
           style: Theme.of(context).appBarTheme.titleTextStyle,
         )),
-        const Expanded(
+        Expanded(
             child: Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  "View all",
+                  option,
                   style: TextStyle(color: Color.fromARGB(255, 208, 128, 9)),
                 )))
       ],

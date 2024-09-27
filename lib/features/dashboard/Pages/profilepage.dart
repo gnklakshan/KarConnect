@@ -96,7 +96,7 @@ class _profileState extends State<profile> {
           context: context,
           icon: Iconsax.people,
           label: "profile",
-          onPressed: () => Get.to(() => MapPage()),
+          onPressed: () => Get.to(() => dummy()),
         ),
         _buildSpacedprofileOption(
           context: context,
@@ -106,9 +106,9 @@ class _profileState extends State<profile> {
         ),
         _buildSpacedprofileOption(
           context: context,
-          icon: Iconsax.heart,
-          label: "Wishlist",
-          onPressed: () => Get.to(() => dummy()),
+          icon: Iconsax.map,
+          label: "Map",
+          onPressed: () => Get.to(() => MapPage()),
         ),
         _buildSpacedprofileOption(
           context: context,
