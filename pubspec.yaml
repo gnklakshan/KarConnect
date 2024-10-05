@@ -56,8 +56,14 @@ dependencies:
   cloud_firestore: ^4.17.5
   flutter_expandable_text: ^1.0.0
   font_awesome_flutter: ^10.7.0
+
+  # Map configuration
   location: ^7.0.0
   google_maps_flutter: ^2.9.0
+
+  # Payment Gateway configuration
+  flutter_stripe: ^11.1.0
+  dio: ^5.7.0
 
 dev_dependencies:
   flutter_test:

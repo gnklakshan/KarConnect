@@ -1,10 +1,12 @@
 import 'dart:ui';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:karconnect/backend/data_fetch_and_represent/data_services/dataservice_from_collection.dart';
 import 'package:karconnect/backend/firebase/firebase_auth.dart';
+import 'package:karconnect/backend/services/stripeservices.dart';
 import 'package:karconnect/dummy_temp.dart';
 import 'package:karconnect/features/authentication/screens/login/login.dart';
 import 'package:karconnect/features/dashboard/Pages/subpages/rateUs.dart';
@@ -97,6 +99,10 @@ class _profileState extends State<profile> {
           icon: Iconsax.people,
           label: "profile",
           onPressed: () => Get.to(() => dummy()),
+          // onPressed: () {
+          //   StripeService.instance
+          //       .makePayment(amount: 500, email: 'lakshan@gmail.com');
+          // },
         ),
         _buildSpacedprofileOption(
           context: context,

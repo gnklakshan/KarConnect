@@ -1,10 +1,12 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:karconnect/backend/data_store/book_vehicle_backend.dart';
+import 'package:karconnect/backend/services/stripeservices.dart';
 
 import '../../../dashboard/dashbord.dart';
 
@@ -86,14 +88,14 @@ class BookingConfirmationPage extends StatelessWidget {
               _DetailRow(
                   'Total price', '\Rs ${(carPrice + 2500).toStringAsFixed(2)}'),
               const SizedBox(height: 16),
-              const SizedBox(height: 16),
+              const SizedBox(height: 6),
               _PaymentInstructions(),
               const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    print('Confirmed booking');
+                    print('bank payment selected');
                     showDialog(
                       context: context,
                       barrierDismissible: false,
@@ -118,7 +120,26 @@ class BookingConfirmationPage extends StatelessWidget {
                       },
                     );
                   },
-                  child: const Text('Confirm Booking'),
+                  child: const Text('Bank Payment'),
+                ),
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    String email = FirebaseAuth.instance.currentUser?.email ??
+                        "karconnect@gmail.com";
+                    StripeService.instance.makePayment(
+                        amount: 1000,
+                        email: email,
+                        startDate: startDate,
+                        startTime: startTime,
+                        endDate: endDate,
+                        endTime: endTime,
+                        VehicleID: VehicleID);
+                  },
+                  child: const Text('Pay Now'),
                 ),
               ),
             ],
@@ -184,7 +205,8 @@ class _PaymentInstructions extends StatelessWidget {
     final isDarkMode = theme.brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      // height: 10,
+      padding: const EdgeInsets.only(left: 16, right: 16),
       decoration: BoxDecoration(
         color: isDarkMode
             ? theme.colorScheme.primary.withOpacity(0.1)
@@ -232,12 +254,12 @@ class _PaymentInstructions extends StatelessWidget {
                     color: theme.colorScheme.primary,
                   ),
                 ),
-                TextSpan(
-                  text: 'See your email for more details.',
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onBackground,
-                  ),
-                ),
+                // TextSpan(
+                //   text: 'See your email for more details.',
+                //   style: theme.textTheme.bodyMedium?.copyWith(
+                //     color: theme.colorScheme.onBackground,
+                //   ),
+                // ),
               ],
             ),
           ),
