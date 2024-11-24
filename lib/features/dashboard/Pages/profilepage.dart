@@ -120,14 +120,15 @@ class _profileState extends State<profile> {
           context: context,
           icon: Iconsax.message_question,
           label: "FAQs",
-          onPressed: () => _launchURL('https://kangaroocabs.com/faq'),
+          onPressed: () =>
+              _launchURL('https://gnklakshan.github.io/KarConnect_FAQ/'),
         ),
         _buildSpacedprofileOption(
           context: context,
           icon: Iconsax.document_text,
           label: "Policy",
-          onPressed: () =>
-              _launchURL('https://kangaroocabs.com/terms-conditions'),
+          onPressed: () => _launchURL(
+              'https://gnklakshan.github.io/KarConnect_FAQ/policy.html'),
         ),
         _buildSpacedprofileOption(
           context: context,
