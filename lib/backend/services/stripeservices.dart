@@ -229,7 +229,7 @@ class StripeService {
                     </div>
                     <div class="detail-row">
                       <strong>Booking Date : </strong>
-                      <span>$DateTime.now()</span>
+                      <span>${DateTime.now()}</span>
                     </div>
                     <div class="detail-row">
                       <strong>Pickup date : </strong>
