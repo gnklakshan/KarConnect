@@ -34,13 +34,6 @@ class TPrimaryHeaderContainer extends StatelessWidget {
                   child: TCircularContainer(
                     backgroundColor: TColors.textwhite.withOpacity(0.1),
                   )),
-              // Column(
-              //   children: [
-              //     //appbar
-              //     //search
-              //     //categories
-              //   ],
-              // ),
             ],
           ),
         ),

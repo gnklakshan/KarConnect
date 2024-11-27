@@ -254,12 +254,6 @@ class _PaymentInstructions extends StatelessWidget {
                     color: theme.colorScheme.primary,
                   ),
                 ),
-                // TextSpan(
-                //   text: 'See your email for more details.',
-                //   style: theme.textTheme.bodyMedium?.copyWith(
-                //     color: theme.colorScheme.onBackground,
-                //   ),
-                // ),
               ],
             ),
           ),

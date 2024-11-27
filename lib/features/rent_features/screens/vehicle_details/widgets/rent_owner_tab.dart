@@ -54,9 +54,6 @@ class TRentOwnerDetailsTab extends StatelessWidget {
               ],
             ),
           ),
-          // const SizedBox(
-          //   width: TSizes.spaceBtwItems * 5,
-          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

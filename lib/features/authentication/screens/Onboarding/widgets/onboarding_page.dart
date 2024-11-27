@@ -20,11 +20,7 @@ class OnBoardingPage extends StatelessWidget {
           const SizedBox(
             height: 80,
           ),
-          Image(
-              // width: THelperFunctions.screenWidth()*0.8,
-              // height: THelperFunctions.screenHeight()* 0.6,
-
-              image: AssetImage(image)),
+          Image(image: AssetImage(image)),
           const SizedBox(
             height: 30,
           ),

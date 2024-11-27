@@ -19,7 +19,7 @@ Card BrandCard(BuildContext context, String name, String path) {
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () => Get.to(() => const dummy()),
+        // onTap: () => Get.to(() => const dummy()),
         child: Column(
           children: [
             Image.network(
